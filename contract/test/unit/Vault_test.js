@@ -222,15 +222,20 @@ describe("Vault", function () {
       mockTokenAddr
     );
     console.log(`Donee Balance: ${doneeBalance}`);
-    const withdrawTx = await VaultContract.connect(beneficiary).withdraw(
-      ethers.constants.AddressZero
-    );
-    withdrawTx.wait(1);
-    const doneeBalanceUpdated = await VaultContract.viewBalance(
-      beneficiary.address,
-      mockTokenAddr
-    );
-    assert.equal(doneeBalanceUpdated, 0);
+    try {
+      const withdrawTx = await VaultContract.connect(beneficiary).withdraw(
+        ethers.constants.AddressZero
+      );
+      withdrawTx.wait(1);
+    } catch (err) {
+      assert.equal(
+        err.message,
+        "Error: VM Exception while processing transaction: reverted with reason string 'Address: call to non-contract'"
+      );
+      return;
+    }
+    throw new Error("This should not pass through");
+
   });
 });
 
