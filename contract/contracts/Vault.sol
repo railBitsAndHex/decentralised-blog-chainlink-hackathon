@@ -1,7 +1,5 @@
 // SPDX-License-Identifier: MIT
 
-
-
 pragma solidity 0.8.4;
 
 import "@openzeppelin/contracts/access/Ownable.sol";
@@ -58,6 +56,10 @@ contract Vault is ReentrancyGuard, Pausable, Ownable, IVault {
     }
 
     function recoverERC20() external override onlyOwner nonReentrant {}
+
+    function viewWhiteListedTokens() external view returns (address[] memory) {
+        return whiteListedTokens;
+    }
 
     // private functions
     function tokenWhitelisted(address _tokenAddr) private view returns (bool) {

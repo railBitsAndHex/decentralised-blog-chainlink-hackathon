@@ -57,3 +57,4 @@ module.exports = {
   //   apiKey: process.env.ETHERSCAN_API_KEY,
   // },
 };
+/* getNamedAccounts: () => Promise<{ [name: string]: string }>: a function returning an object whose keys are names and values are addresses. It is parsed from the namedAccounts configuration (see Configuration). */
