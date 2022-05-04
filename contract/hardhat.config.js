@@ -56,6 +56,9 @@ module.exports = {
     feeCollector: {
       default: 1,
     },
+    beneficiary: {
+      default: 2,
+    },
   },
 
   // gasReporter: {

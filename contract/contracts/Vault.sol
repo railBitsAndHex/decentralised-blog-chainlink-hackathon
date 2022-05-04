@@ -17,7 +17,6 @@ contract Vault is ReentrancyGuard, Pausable, Ownable, IVault {
 
     mapping(address => mapping(address => uint256)) private doneeBalance;
     mapping(address => uint256) private tokenBalances;
-    address[] private donees;
     address[] private whiteListedTokens;
 
     // ***************WARNING: MUTATIVE Functions*************************
@@ -30,6 +29,7 @@ contract Vault is ReentrancyGuard, Pausable, Ownable, IVault {
         address _tokenAddr,
         address _donee
     ) external override nonReentrant {
+        require(_amounts > 0, "Invalid donate amount");
         require(
             tokenWhitelisted(_tokenAddr),
             "Cannot donate non-permitted tokens!"
@@ -38,7 +38,6 @@ contract Vault is ReentrancyGuard, Pausable, Ownable, IVault {
             _tokenAddr != address(0) && _donee != address(0),
             "Require non-zero"
         );
-        donees.push(_donee);
         tokenBalances[_tokenAddr] = tokenBalances[_tokenAddr] + _amounts;
         doneeBalance[_tokenAddr][_donee] += _amounts;
         IERC20(_tokenAddr).safeTransferFrom(msg.sender, _donee, _amounts);

@@ -15,9 +15,8 @@ const whitelistToken = deployments.createFixture(
     console.log(`MockTokenContractAddr: ${MockTokenContract.address}`);
     console.log(`VaultContractAddr: ${VaultContract.address}`);
     console.log(`deployer: ${deployer}`);
-    await VaultContract.whitelistToken(MockTokenContract.address).then((tx) =>
-      tx.wait()
-    ); //this mint is executed once and then `createFixture` will ensure it is snapshotted
+    const wlTx = await VaultContract.whitelistToken(MockTokenContract.address);
+    wlTx.wait(1); //this mint is executed once and then `createFixture` will ensure it is snapshotted
     console.log("Whitelisting of token done");
     console.log(
       "============================ End whitelist fixture ========================="
@@ -30,7 +29,7 @@ const approveToken = deployments.createFixture(
     console.log(
       "========================This is approve token fixture =============================="
     );
-    await deployments.fixture(); // ensure you start from a fresh deployments
+    // await deployments.fixture(); // ensure you start from a fresh deployments
     const { deployer } = await getNamedAccounts();
     const MockTokenContract = await ethers.getContract("MockToken", deployer);
 
@@ -38,9 +37,12 @@ const approveToken = deployments.createFixture(
     console.log(`MockTokenContractAddr: ${MockTokenContract.address}`);
     console.log(`VaultContractAddr: ${VaultContract.address}`);
     console.log(`deployer: ${deployer}`);
-    await MockTokenContract.approve(deployer, VaultContract.address).then(
-      (tx) => tx.wait()
-    ); //this mint is executed once and then `createFixture` will ensure it is snapshotted
+    const approveTx = await MockTokenContract.approve(
+      VaultContract.address,
+      10001
+    );
+    await approveTx.wait(1);
+
     console.log("Approval done");
 
     console.log(
@@ -68,23 +70,25 @@ describe("Vault", function () {
       true
     );
   });
-  //   it("Should allow user to donate tokens to a beneficiary", async function () {
-  //     await deployments.fixture(["Vault", "MockToken"]);
-  //     await whitelistToken();
-  //     const { tokenOwner } = await approveToken();
-  //     const beneficiary = "0x70997970c51812dc3a010c7d01b50e0d17dc79c8";
-  //     const MockTokenContract = tokenOwner.mtContract;
-  //     const mockTokenAddr = MockTokenContract.address;
-  //     const VaultContract = tokenOwner.vContract;
-  //     console.log("MOCK TOKEN ADDR IN DESC\n");
-  //     console.log(mockTokenAddr);
-  //     const donateTx = await VaultContract.donate(
-  //       10000,
-  //       mockTokenAddr,
-  //       beneficiary
-  //     );
-  //     // wait until the transaction is mined
-  //     await donateTx.wait();
-  //     expect(MockTokenContract.balanceOf(beneficiary)).equal(10000);
-  //   });
+  it("Should allow user to donate tokens to a beneficiary", async function () {
+    await whitelistToken();
+    const { tokenOwner } = await approveToken();
+    const { beneficiary } = await getNamedAccounts();
+    const MockTokenContract = tokenOwner.mtContract;
+    const mockTokenAddr = MockTokenContract.address;
+    const VaultContract = tokenOwner.vContract;
+    // console.log("MOCK TOKEN ADDR IN DESCRIBE:\n");
+    // console.log(mockTokenAddr);
+    const whiteListedTokens = await VaultContract.viewWhiteListedTokens();
+    // console.log("WHITELISTED TOKEN:\n");
+    // console.log(whiteListedTokens);
+    const donateTx = await VaultContract.donate(
+      10000,
+      mockTokenAddr,
+      beneficiary
+    );
+    // wait until the transaction is mined
+    await donateTx.wait();
+    expect(await MockTokenContract.balanceOf(beneficiary)).equal(10000);
+  });
 });
