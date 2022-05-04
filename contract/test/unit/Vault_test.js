@@ -107,6 +107,7 @@ describe("Vault", function () {
     );
     assert.equal(doneeBalance, 5000);
   });
+
   it("should not allow donation to the zero address", async () => {
     await whitelistToken();
     const { tokenOwner } = await approveToken();
@@ -118,6 +119,29 @@ describe("Vault", function () {
         10000,
         mockTokenAddr,
         ethers.constants.AddressZero
+      );
+      await donateTx.wait(1);
+      throw new Error("This TX should NOT pass through");
+    } catch (err) {
+      assert.equal(
+        err.message,
+        "Error: VM Exception while processing transaction: reverted with reason string 'Require non-zero'"
+      );
+    }
+  });
+
+  it("should not allow zero address to be used for donation", async () => {
+    await whitelistToken();
+    const { tokenOwner } = await approveToken();
+    const { beneficiary } = getNamedAccounts();
+    const MockTokenContract = tokenOwner.mtContract;
+    const mockTokenAddr = MockTokenContract.address;
+    const VaultContract = tokenOwner.vContract;
+    try {
+      const donateTx = await VaultContract.donate(
+        10000,
+        ethers.constants.AddressZero,
+        beneficiary
       );
       await donateTx.wait(1);
       throw new Error("This TX should NOT pass through");

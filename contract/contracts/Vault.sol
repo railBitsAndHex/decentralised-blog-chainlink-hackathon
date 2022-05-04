@@ -1,7 +1,5 @@
 // SPDX-License-Identifier: MIT
 
-
-
 pragma solidity 0.8.4;
 
 import "@openzeppelin/contracts/access/Ownable.sol";
@@ -32,12 +30,12 @@ contract Vault is ReentrancyGuard, Pausable, Ownable, IVault {
     ) external override nonReentrant {
         require(_amounts > 0, "Invalid donate amount");
         require(
-            tokenWhitelisted(_tokenAddr),
-            "Cannot donate non-permitted tokens!"
-        );
-        require(
             _tokenAddr != address(0) && _donee != address(0),
             "Require non-zero"
+        );
+        require(
+            tokenWhitelisted(_tokenAddr),
+            "Cannot donate non-permitted tokens!"
         );
         tokenBalances[_tokenAddr] = tokenBalances[_tokenAddr] + _amounts;
         doneeBalance[_tokenAddr][_donee] += _amounts;
