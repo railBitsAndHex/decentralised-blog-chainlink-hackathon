@@ -1,5 +1,7 @@
 // SPDX-License-Identifier: MIT
 
+
+
 pragma solidity 0.8.4;
 
 import "@openzeppelin/contracts/access/Ownable.sol";
@@ -14,7 +16,6 @@ contract Vault is ReentrancyGuard, Pausable, Ownable, IVault {
     using SafeERC20 for IERC20;
 
     mapping(address => mapping(address => uint256)) private doneeBalance;
-    mapping(address => uint256) private tokenBalances;
     address[] private whiteListedTokens;
 
     // ***************WARNING: MUTATIVE Functions*************************
@@ -37,7 +38,6 @@ contract Vault is ReentrancyGuard, Pausable, Ownable, IVault {
             tokenWhitelisted(_tokenAddr),
             "Cannot donate non-permitted tokens!"
         );
-        tokenBalances[_tokenAddr] = tokenBalances[_tokenAddr] + _amounts;
         doneeBalance[_tokenAddr][_donee] += _amounts;
         IERC20(_tokenAddr).safeTransferFrom(
             msg.sender,
@@ -48,7 +48,6 @@ contract Vault is ReentrancyGuard, Pausable, Ownable, IVault {
 
     function withdraw(address _tokenAddr) external override nonReentrant {
         uint256 amounts = doneeBalance[_tokenAddr][msg.sender];
-        tokenBalances[_tokenAddr] = tokenBalances[_tokenAddr] - amounts;
         doneeBalance[_tokenAddr][msg.sender] = 0;
         IERC20(_tokenAddr).safeTransfer(msg.sender, amounts);
     }

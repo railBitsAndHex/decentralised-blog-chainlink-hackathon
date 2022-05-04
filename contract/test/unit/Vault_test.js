@@ -72,7 +72,6 @@ describe("Vault", function () {
     await deployments.fixture(["Vault", "MockToken"]);
     const { deployer } = await getNamedAccounts();
     const VaultContract = await ethers.getContract("Vault", deployer);
-    const MockTokenContract = await ethers.getContract("MockToken", deployer);
     try {
       const wlTx = await VaultContract.whitelistToken(
         ethers.constants.AddressZero
@@ -133,9 +132,8 @@ describe("Vault", function () {
   it("should not allow zero address to be used for donation", async () => {
     await whitelistToken();
     const { tokenOwner } = await approveToken();
-    const { beneficiary } = getNamedAccounts();
-    const MockTokenContract = tokenOwner.mtContract;
-    const mockTokenAddr = MockTokenContract.address;
+    const { beneficiary } = await getNamedAccounts();
+    console.log(`B: ${beneficiary}`);
     const VaultContract = tokenOwner.vContract;
     try {
       const donateTx = await VaultContract.donate(
@@ -151,6 +149,59 @@ describe("Vault", function () {
         "Error: VM Exception while processing transaction: reverted with reason string 'Require non-zero'"
       );
     }
+  });
+
+  it("should not allow donation of zero tokens", async () => {
+    await whitelistToken();
+    const { tokenOwner } = await approveToken();
+    const { beneficiary } = await getNamedAccounts();
+    console.log(`B: ${beneficiary}`);
+    const VaultContract = tokenOwner.vContract;
+    const MockTokenContract = tokenOwner.mtContract;
+    const mockTokenAddr = MockTokenContract.address;
+    try {
+      const donateTx = await VaultContract.donate(
+        0,
+        mockTokenAddr,
+        beneficiary
+      );
+      await donateTx.wait(1);
+      throw new Error("This TX should NOT pass through");
+    } catch (err) {
+      assert.equal(
+        err.message,
+        "Error: VM Exception while processing transaction: reverted with reason string 'Invalid donate amount'"
+      );
+    }
+  });
+
+  it("should allow the beneficiary to withdraw their tokens", async () => {
+    await whitelistToken();
+    const { tokenOwner } = await approveToken();
+    const VaultContract = tokenOwner.vContract;
+    const MockTokenContract = tokenOwner.mtContract;
+    const mockTokenAddr = MockTokenContract.address;
+    const [owner, beneficiary] = await ethers.getSigners();
+    const donateTx = await VaultContract.donate(
+      5000,
+      mockTokenAddr,
+      beneficiary.address
+    );
+    await donateTx.wait(1);
+    const doneeBalance = await VaultContract.viewBalance(
+      beneficiary.address,
+      mockTokenAddr
+    );
+    console.log(`Donee Balance: ${doneeBalance}`);
+    const withdrawTx = await VaultContract.connect(beneficiary).withdraw(
+      mockTokenAddr
+    );
+    withdrawTx.wait(1);
+    const doneeBalanceUpdated = await VaultContract.viewBalance(
+      beneficiary.address,
+      mockTokenAddr
+    );
+    assert.equal(doneeBalanceUpdated, 0);
   });
 });
 
