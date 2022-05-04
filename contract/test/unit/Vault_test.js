@@ -203,6 +203,35 @@ describe("Vault", function () {
     );
     assert.equal(doneeBalanceUpdated, 0);
   });
+
+  it("should revert / not have any withdrawals for unsupported tokens", async () => {
+    await whitelistToken();
+    const { tokenOwner } = await approveToken();
+    const VaultContract = tokenOwner.vContract;
+    const MockTokenContract = tokenOwner.mtContract;
+    const mockTokenAddr = MockTokenContract.address;
+    const [owner, beneficiary] = await ethers.getSigners();
+    const donateTx = await VaultContract.donate(
+      5000,
+      mockTokenAddr,
+      beneficiary.address
+    );
+    await donateTx.wait(1);
+    const doneeBalance = await VaultContract.viewBalance(
+      beneficiary.address,
+      mockTokenAddr
+    );
+    console.log(`Donee Balance: ${doneeBalance}`);
+    const withdrawTx = await VaultContract.connect(beneficiary).withdraw(
+      ethers.constants.AddressZero
+    );
+    withdrawTx.wait(1);
+    const doneeBalanceUpdated = await VaultContract.viewBalance(
+      beneficiary.address,
+      mockTokenAddr
+    );
+    assert.equal(doneeBalanceUpdated, 0);
+  });
 });
 
 //yarn hardhat test --deploy-fixture
