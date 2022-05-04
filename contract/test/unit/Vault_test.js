@@ -63,3 +63,34 @@ const approveToken = deployments.createFixture(
     };
   }
 );
+describe("Vault", function () {
+  it("should allow owner to whitelist token", async () => {
+    await deployments.fixture(["Vault", "MockToken"]);
+    const { deployer } = await getNamedAccounts();
+    const VaultContract = ethers.getContract("Vault", deployer);
+    const MockTokenContract = ethers.getContract("MockToken", deployer);
+    const wlTx = await VaultContract.whitelistToken(MockTokenContract.address);
+    await wlTx.wait(1);
+    const whiteListedTokens = await VaultContract.viewWhiteListedTokens();
+    console.log(whiteListedTokens);
+  });
+  //   it("Should allow user to donate tokens to a beneficiary", async function () {
+  //     await deployments.fixture(["Vault", "MockToken"]);
+  //     await whitelistToken();
+  //     const { tokenOwner } = await approveToken();
+  //     const beneficiary = "0x70997970c51812dc3a010c7d01b50e0d17dc79c8";
+  //     const MockTokenContract = tokenOwner.mtContract;
+  //     const mockTokenAddr = MockTokenContract.address;
+  //     const VaultContract = tokenOwner.vContract;
+  //     console.log("MOCK TOKEN ADDR IN DESC\n");
+  //     console.log(mockTokenAddr);
+  //     const donateTx = await VaultContract.donate(
+  //       10000,
+  //       mockTokenAddr,
+  //       beneficiary
+  //     );
+  //     // wait until the transaction is mined
+  //     await donateTx.wait();
+  //     expect(MockTokenContract.balanceOf(beneficiary)).equal(10000);
+  //   });
+});
