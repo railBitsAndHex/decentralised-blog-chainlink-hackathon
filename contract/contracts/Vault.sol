@@ -21,6 +21,7 @@ contract Vault is ReentrancyGuard, Pausable, Ownable, IVault {
 
     // ***************WARNING: MUTATIVE Functions*************************
     function whitelistToken(address _tokenAddr) external override onlyOwner {
+        require(_tokenAddr != address(0), "Require non-zero");
         whiteListedTokens.push(_tokenAddr);
     }
 
@@ -40,7 +41,11 @@ contract Vault is ReentrancyGuard, Pausable, Ownable, IVault {
         );
         tokenBalances[_tokenAddr] = tokenBalances[_tokenAddr] + _amounts;
         doneeBalance[_tokenAddr][_donee] += _amounts;
-        IERC20(_tokenAddr).safeTransferFrom(msg.sender, _donee, _amounts);
+        IERC20(_tokenAddr).safeTransferFrom(
+            msg.sender,
+            address(this),
+            _amounts
+        );
     }
 
     function withdraw(address _tokenAddr) external override nonReentrant {
@@ -52,6 +57,14 @@ contract Vault is ReentrancyGuard, Pausable, Ownable, IVault {
 
     function viewWhiteListedTokens() external view returns (address[] memory) {
         return whiteListedTokens;
+    }
+
+    function viewBalance(address _donee, address _tokenAddr)
+        external
+        view
+        returns (uint256)
+    {
+        return doneeBalance[_tokenAddr][_donee];
     }
 
     // private functions
