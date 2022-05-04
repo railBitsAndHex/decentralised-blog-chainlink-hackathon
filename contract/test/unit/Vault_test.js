@@ -7,7 +7,7 @@ const whitelistToken = deployments.createFixture(
     console.log(
       "========================This is whitelist token fixture =============================="
     );
-    await deployments.fixture(); // ensure you start from a fresh deployments
+    // await deployments.fixture(); // ensure you start from a fresh deployments
     const { deployer } = await getNamedAccounts();
     const MockTokenContract = await ethers.getContract("MockToken", deployer);
     const VaultContract = await ethers.getContract("Vault", deployer);
@@ -235,7 +235,6 @@ describe("Vault", function () {
       return;
     }
     throw new Error("This should not pass through");
-
   });
 });
 

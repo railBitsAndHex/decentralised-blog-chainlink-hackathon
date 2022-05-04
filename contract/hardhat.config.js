@@ -24,6 +24,10 @@ task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
 /**
  * @type import('hardhat/config').HardhatUserConfig
  */
+
+const PKEY_1 = process.env.PKEY_1;
+const PKEY_2 = process.env.PKEY_2;
+const PKEY_3 = process.env.PKEY_3;
 module.exports = {
   solidity: {
     version: "0.8.4",
@@ -37,13 +41,13 @@ module.exports = {
   networks: {
     localhost: {
       chainId: 31337,
-      url: "http://127.0.0.1:8545",
+      url: process.env.LOCALHOST_URL,
     },
-    // ropsten: {
-    //   url: process.env.ROPSTEN_URL || "",
-    //   accounts:
-    //     process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
-    // },
+    goerli: {
+      chainId: 5,
+      url: process.env.GOERLI_URL,
+      accounts: [PKEY_1, PKEY_2, PKEY_3],
+    },
   },
   spdxLicenseIdentifier: {
     overwrite: true,

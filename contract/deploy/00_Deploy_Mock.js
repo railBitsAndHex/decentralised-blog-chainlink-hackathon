@@ -13,6 +13,14 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
       log: true,
       args: [10000000],
     });
+  } else if (chainId == 5) {
+    log("Goerli network detected! Deploying mock token...");
+    await deploy("MockToken", {
+      contract: "MockToken",
+      from: deployer,
+      log: true,
+      args: [ethers.BigNumber.from("1000000000000000000000000")],
+    });
   }
   log("----------------------------------------------------");
 };
