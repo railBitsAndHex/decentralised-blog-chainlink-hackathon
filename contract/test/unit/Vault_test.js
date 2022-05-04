@@ -70,18 +70,14 @@ describe("Vault", function () {
       true
     );
   });
-  it("Should allow user to donate tokens to a beneficiary", async function () {
+  it("Should allow user to donate tokens to a beneficiary", async () => {
     await whitelistToken();
     const { tokenOwner } = await approveToken();
     const { beneficiary } = await getNamedAccounts();
     const MockTokenContract = tokenOwner.mtContract;
     const mockTokenAddr = MockTokenContract.address;
     const VaultContract = tokenOwner.vContract;
-    // console.log("MOCK TOKEN ADDR IN DESCRIBE:\n");
-    // console.log(mockTokenAddr);
     const whiteListedTokens = await VaultContract.viewWhiteListedTokens();
-    // console.log("WHITELISTED TOKEN:\n");
-    // console.log(whiteListedTokens);
     const donateTx = await VaultContract.donate(
       10000,
       mockTokenAddr,
@@ -90,5 +86,14 @@ describe("Vault", function () {
     // wait until the transaction is mined
     await donateTx.wait();
     expect(await MockTokenContract.balanceOf(beneficiary)).equal(10000);
+  });
+  it("should not allow donation to the zero address", async () => {
+    await whitelistToken();
+    const { tokenOwner } = await approveToken();
+    const MockTokenContract = tokenOwner.mtContract;
+    const mockTokenAddr = MockTokenContract.address;
+    const donateTx = await VaultContract.donate(10000, mockTokenAddr, "0");
+    await donateTx.wait(1);
+    expect(donateTx).to.throw();
   });
 });
