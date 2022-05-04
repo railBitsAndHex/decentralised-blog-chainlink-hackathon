@@ -1,8 +1,7 @@
 const { inputToConfig } = require("@ethereum-waffle/compiler");
 const { getNamedAccounts, deployments, network, ethers } = require("hardhat");
-const {
-  experimentalAddHardhatNetworkMessageTraceHook,
-} = require("hardhat/config");
+const { expect } = require("chai");
+
 const whitelistToken = deployments.createFixture(
   async ({ deployments, getNamedAccounts, ethers }, options) => {
     const { deploy, log } = deployments;
@@ -23,13 +22,6 @@ const whitelistToken = deployments.createFixture(
     console.log(
       "============================ End whitelist fixture ========================="
     );
-    // return {
-    //   tokenOwner: {
-    //     address: deployer,
-    //     vContract: VaultContract,
-    //     mtContract: MockTokenContract,
-    //   },
-    // };
   }
 );
 const approveToken = deployments.createFixture(
@@ -67,12 +59,14 @@ describe("Vault", function () {
   it("should allow owner to whitelist token", async () => {
     await deployments.fixture(["Vault", "MockToken"]);
     const { deployer } = await getNamedAccounts();
-    const VaultContract = ethers.getContract("Vault", deployer);
-    const MockTokenContract = ethers.getContract("MockToken", deployer);
+    const VaultContract = await ethers.getContract("Vault", deployer);
+    const MockTokenContract = await ethers.getContract("MockToken", deployer);
     const wlTx = await VaultContract.whitelistToken(MockTokenContract.address);
     await wlTx.wait(1);
     const whiteListedTokens = await VaultContract.viewWhiteListedTokens();
-    console.log(whiteListedTokens);
+    expect(whiteListedTokens.includes(MockTokenContract.address)).to.equal(
+      true
+    );
   });
   //   it("Should allow user to donate tokens to a beneficiary", async function () {
   //     await deployments.fixture(["Vault", "MockToken"]);

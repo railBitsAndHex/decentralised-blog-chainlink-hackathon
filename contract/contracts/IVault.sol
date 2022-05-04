@@ -15,5 +15,5 @@ interface IVault {
 
     function withdraw(address _tokenAddr) external;
 
-    function recoverERC20() external;
+    // function recoverERC20() external;
 }

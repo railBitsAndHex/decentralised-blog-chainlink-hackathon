@@ -1,5 +1,7 @@
 // SPDX-License-Identifier: MIT
 
+
+
 pragma solidity 0.8.4;
 
 import "@openzeppelin/contracts/access/Ownable.sol";
@@ -17,10 +19,6 @@ contract Vault is ReentrancyGuard, Pausable, Ownable, IVault {
     mapping(address => uint256) private tokenBalances;
     address[] private donees;
     address[] private whiteListedTokens;
-    modifier nonZeroAddress(address _addr) {
-        require(_addr != address(0), "Address cannot be zero address");
-        _;
-    }
 
     // ***************WARNING: MUTATIVE Functions*************************
     function whitelistToken(address _tokenAddr) external override onlyOwner {
@@ -31,16 +29,14 @@ contract Vault is ReentrancyGuard, Pausable, Ownable, IVault {
         uint256 _amounts,
         address _tokenAddr,
         address _donee
-    )
-        external
-        override
-        nonReentrant
-        nonZeroAddress(_tokenAddr)
-        nonZeroAddress(_donee)
-    {
+    ) external override nonReentrant {
         require(
             tokenWhitelisted(_tokenAddr),
             "Cannot donate non-permitted tokens!"
+        );
+        require(
+            _tokenAddr != address(0) && _donee != address(0),
+            "Require non-zero"
         );
         donees.push(_donee);
         tokenBalances[_tokenAddr] = tokenBalances[_tokenAddr] + _amounts;
@@ -54,8 +50,6 @@ contract Vault is ReentrancyGuard, Pausable, Ownable, IVault {
         doneeBalance[_tokenAddr][msg.sender] = 0;
         IERC20(_tokenAddr).safeTransfer(msg.sender, amounts);
     }
-
-    function recoverERC20() external override onlyOwner nonReentrant {}
 
     function viewWhiteListedTokens() external view returns (address[] memory) {
         return whiteListedTokens;
