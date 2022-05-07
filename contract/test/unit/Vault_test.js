@@ -81,7 +81,7 @@ describe("Vault", function () {
     } catch (err) {
       assert.equal(
         err.message,
-        "Error: VM Exception while processing transaction: reverted with reason string 'Require non-zero'"
+        `Error: VM Exception while processing transaction: reverted with custom error 'AddressIsZero1("0x0000000000000000000000000000000000000000")'`
       );
     }
   });
@@ -124,7 +124,7 @@ describe("Vault", function () {
     } catch (err) {
       assert.equal(
         err.message,
-        "Error: VM Exception while processing transaction: reverted with reason string 'Require non-zero'"
+        `Error: VM Exception while processing transaction: reverted with custom error 'AddressIsZero2("0x5FbDB2315678afecb367f032d93F642f64180aa3", "0x0000000000000000000000000000000000000000")'`
       );
     }
   });
@@ -146,7 +146,7 @@ describe("Vault", function () {
     } catch (err) {
       assert.equal(
         err.message,
-        "Error: VM Exception while processing transaction: reverted with reason string 'Require non-zero'"
+        `Error: VM Exception while processing transaction: reverted with custom error 'AddressIsZero2("0x0000000000000000000000000000000000000000", "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC")'`
       );
     }
   });
@@ -170,7 +170,7 @@ describe("Vault", function () {
     } catch (err) {
       assert.equal(
         err.message,
-        "Error: VM Exception while processing transaction: reverted with reason string 'Invalid donate amount'"
+        `Error: VM Exception while processing transaction: reverted with custom error 'AmountNotMoreThanZero(0)'`
       );
     }
   });
