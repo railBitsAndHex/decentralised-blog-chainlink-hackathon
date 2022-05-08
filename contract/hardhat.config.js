@@ -24,10 +24,6 @@ task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
 /**
  * @type import('hardhat/config').HardhatUserConfig
  */
-
-const PKEY_1 = process.env.PKEY_1;
-const PKEY_2 = process.env.PKEY_2;
-const PKEY_3 = process.env.PKEY_3;
 module.exports = {
   solidity: {
     version: "0.8.4",
@@ -39,14 +35,30 @@ module.exports = {
     },
   },
   networks: {
+    hardhat: {
+      accounts: {
+        mnemonic: process.env.TEST_WALLET_MNEMONIC,
+        count: 10,
+        initialIndex: 0,
+      },
+    },
     localhost: {
+      accounts: {
+        mnemonic: process.env.TEST_WALLET_MNEMONIC,
+        count: 10,
+        initialIndex: 0,
+      },
       chainId: 31337,
       url: process.env.LOCALHOST_URL,
     },
     goerli: {
       chainId: 5,
       url: process.env.GOERLI_URL,
-      accounts: [PKEY_1, PKEY_2, PKEY_3],
+      accounts: {
+        mnemonic: process.env.TEST_WALLET_MNEMONIC,
+        count: 10,
+        initialIndex: 0,
+      },
     },
   },
   spdxLicenseIdentifier: {
