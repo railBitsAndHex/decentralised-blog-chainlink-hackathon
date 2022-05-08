@@ -81,7 +81,11 @@ describe("Vault", function () {
     } catch (err) {
       assert.equal(
         err.message,
+<<<<<<< HEAD
         `Error: VM Exception while processing transaction: reverted with custom error 'AddressIsZero1(${ethers.constants.AddressZero})'`
+=======
+        `Error: VM Exception while processing transaction: reverted with custom error 'AddressIsZero1("${ethers.constants.AddressZero}")'`
+>>>>>>> de8098b95d41d4b496b8de8f8d5012e16410fd51
       );
     }
   });
@@ -122,10 +126,17 @@ describe("Vault", function () {
       await donateTx.wait(1);
       throw new Error("This TX should NOT pass through");
     } catch (err) {
+<<<<<<< HEAD
       expect(err.message).to.be.oneOf([
         `Error: VM Exception while processing transaction: reverted with custom error 'AddressIsZero2(${mockTokenAddr}, ${ethers.constants.AddressZero})'`,
         `Transaction reverted without a reason string`,
       ]);
+=======
+      assert.equal(
+        err.message,
+        `Error: VM Exception while processing transaction: reverted with custom error 'AddressIsZero2("${mockTokenAddr}", "${ethers.constants.AddressZero}")'`
+      );
+>>>>>>> de8098b95d41d4b496b8de8f8d5012e16410fd51
     }
   });
 
@@ -146,7 +157,7 @@ describe("Vault", function () {
     } catch (err) {
       assert.equal(
         err.message,
-        `Error: VM Exception while processing transaction: reverted with custom error 'AddressIsZero2(${ethers.constants.AddressZero}, ${beneficiary})'`
+        `Error: VM Exception while processing transaction: reverted with custom error 'AddressIsZero2("${ethers.constants.AddressZero}", "${beneficiary}")'`
       );
     }
   });

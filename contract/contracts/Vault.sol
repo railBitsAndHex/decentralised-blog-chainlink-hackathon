@@ -8,6 +8,13 @@
 
 
 
+<<<<<<< HEAD
+=======
+
+
+
+
+>>>>>>> de8098b95d41d4b496b8de8f8d5012e16410fd51
 pragma solidity 0.8.4;
 
 import "@openzeppelin/contracts/access/Ownable.sol";
@@ -74,10 +81,10 @@ contract Vault is ReentrancyGuard, Pausable, Ownable, IVault {
     // private functions
     function tokenWhitelisted(address _tokenAddr) private view returns (bool) {
         uint256 wlTokenLenCache = whiteListedTokens.length;
-        address[] memory wlCache  = whiteListedTokens;
-        unchecked{
+        address[] memory wlTokenCache = whiteListedTokens;
+        unchecked {
             for (uint8 tokensI = 0; tokensI < wlTokenLenCache; ++tokensI) {
-                if (wlCache[tokensI] == _tokenAddr) return true;
+                if (wlTokenCache[tokensI] == _tokenAddr) return true;
             }
         }
         return false;
