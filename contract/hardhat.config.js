@@ -24,7 +24,6 @@ task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
 /**
  * @type import('hardhat/config').HardhatUserConfig
  */
-
 module.exports = {
   solidity: {
     version: "0.8.4",
@@ -38,19 +37,19 @@ module.exports = {
   networks: {
     hardhat: {
       accounts: {
-        mnemonic: `"${process.env.TEST_WALLET_MNEMONIC}"`,
+        mnemonic: process.env.TEST_WALLET_MNEMONIC,
         count: 10,
         initialIndex: 0,
       },
     },
     localhost: {
-      chainId: 31337,
-      url: process.env.LOCALHOST_URL,
       accounts: {
-        mnemonic: `"${process.env.TEST_WALLET_MNEMONIC}"`,
+        mnemonic: process.env.TEST_WALLET_MNEMONIC,
         count: 10,
         initialIndex: 0,
       },
+      chainId: 31337,
+      url: process.env.LOCALHOST_URL,
     },
     goerli: {
       chainId: 5,
