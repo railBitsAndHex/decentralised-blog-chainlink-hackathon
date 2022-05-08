@@ -1,28 +1,44 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState } from "react";
 import { useMoralis } from "react-moralis";
 const AuthContext = React.createContext();
 
 export const useAuth = () => useContext(AuthContext);
 export const AuthProvider = ({ children }) => {
-  const [loading, setLoading] = useState(false);
-  const { authenticate, isAuthenticated, user } = useMoralis();
+  const [error, setError] = useState("");
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const { authenticate, user, logout } = useMoralis();
 
-  const login = async () => {
+  const loginWallet = async () => {
     if (!isAuthenticated) {
-      await authenticate()
-        .then(function (user) {
-          console.log(user);
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
+      try {
+        await authenticate();
+        setIsAuthenticated(true);
+      } catch (error) {
+        setError(error);
+        console.log(error);
+      }
     }
   };
-  const value = { login, user, isAuthenticated };
+  const logoutWallet = async () => {
+    try {
+      await logout();
+      setIsAuthenticated(false);
+    } catch (err) {
+      setError(error);
+      console.log(error);
+    }
+  };
+  const value = {
+    loginWallet,
+    user,
+    isAuthenticated,
+    setIsAuthenticated,
+    logoutWallet,
+  };
   return (
     <AuthContext.Provider value={value}>
       {/* If we are not loading then we want to render out the children */}
-      {!loading && children}
+      {children}
     </AuthContext.Provider>
   );
 };

@@ -1,15 +1,19 @@
 import React from "react";
-
 import { useAuth } from "../context/AuthContext";
+import { useMMDisconnect } from "../hooks/AuthHooks";
 function LoginBtn() {
-  const { login, isAuthenticated, user } = useAuth();
+  const { loginWallet, isAuthenticated, user, logoutWallet } = useAuth();
+  useMMDisconnect();
   return (
     <>
       <section>
         {isAuthenticated ? (
-          <button>{user.get("ethAddress")}</button>
+          <div>
+            <button>{user.get("ethAddress")}</button>
+            <button onClick={() => logoutWallet()}>Disconnect</button>
+          </div>
         ) : (
-          <button onClick={() => login()}>Connect wallet</button>
+          <button onClick={() => loginWallet()}>Connect wallet</button>
         )}
       </section>
     </>
