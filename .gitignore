@@ -6,6 +6,7 @@
 /build
 /artifacts
 /cache
+/deployments
 # misc
 .DS_Store
 .env.local
