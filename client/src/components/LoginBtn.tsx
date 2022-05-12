@@ -1,15 +1,12 @@
 import React from 'react'
 import { useAuth } from '../context/AuthContext'
 export default function LoginBtn() {
-    const { login, clickBool } = useAuth();
+    const { login, isAuthenticated } = useAuth();
     return (
         <>
             <div>
-                Click me to test context!
-                <button onClick={login}>Test Context</button>
-                <div>
-                    Click: {clickBool ? "Clicked" : "Unclicked"}
-                </div>
+                Login with Metamask Wallet
+                <button onClick={login}>Connect</button>
             </div>
         </>
   )
