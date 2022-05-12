@@ -9,10 +9,10 @@ import Login from './pages/Login';
 function App() {
   return (
     <AuthProvider>
-      <Routes>
-        <Route path="/login" element={<Login/>} />
-      </Routes>
       <div className="App">
+        <Routes>
+          <Route path="/login" element={<Login/>} />
+        </Routes>
         <Link to="/login">Login Page</Link>
       </div>
     </AuthProvider>
