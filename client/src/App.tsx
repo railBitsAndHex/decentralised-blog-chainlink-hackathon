@@ -7,9 +7,12 @@ import Login from "./pages/Login";
 import PrivateRoute from "./components/PrivateRoute";
 import HomePage from "./pages/HomePage";
 import ProfilePage from "./pages/ProfilePage";
+import { useAccountsChanged, useNetworksChanged } from "./hooks/AuthHooks";
 import Navbar from "./components/Navbar";
 
 function App() {
+  useAccountsChanged();
+  useNetworksChanged();
   return (
     <AuthProvider>
       <div className="App">
