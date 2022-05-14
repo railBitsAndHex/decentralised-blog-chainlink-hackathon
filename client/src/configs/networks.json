@@ -1,0 +1,16 @@
+{
+    "networks" : {
+        "31337" :{
+            "name" : "localhost",
+            "currency": "ETH"
+        },
+        "4": {
+            "name" : "Rinkeby",
+            "currency": "ETH"
+        },
+        "42" :{
+            "name" : "Kovan",
+            "currency": "ETH"
+        }
+    }
+}
