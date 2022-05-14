@@ -1,10 +1,11 @@
 import React, {ReactNode} from "react"
 export interface AuthContextInterface {
     isAuthenticated: boolean,
-    isThreeIdAuth: boolean,
-    error: string,
+    error: String,
+    accounts: Array<String>, 
     login?: () => void,
-    threeIdLogin?: () => void
+    threeIdLogin?: () => void,
+    logout?:() => void
 }
 export type AuthPropsType = {
     children: ReactNode
