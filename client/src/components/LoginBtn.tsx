@@ -1,8 +1,10 @@
 import React from "react";
 import { useAuth } from "../context/AuthContext";
+import { useAccountsChanged, useNetworksChanged } from "../hooks/AuthHooks";
 export default function LoginBtn() {
   const { login, isAuthenticated, error, accounts, logout } = useAuth();
-
+  useAccountsChanged();
+  useNetworksChanged();
   return (
     <>
       <div>
