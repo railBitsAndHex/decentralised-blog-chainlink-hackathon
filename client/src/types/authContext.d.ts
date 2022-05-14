@@ -7,6 +7,7 @@ export interface AuthContextInterface {
     threeIdLogin?: () => void,
     logout:() => void,
     setError:(err: string) =>void,
+    setAccounts: (accounts: Array<string>) => void
 }
 export type AuthPropsType = {
     children: ReactNode

@@ -6,7 +6,8 @@ const AuthStateInitial : AuthContextInterface = {
     login: () => console.log("Login from context"),
     threeIdLogin: () => console.log("Three Id login from context"),
     logout: () => console.log("Logout from context"),
-    setError: (err: string) => console.log(err)
+    setError: (err: string) => console.log(err),
+    setAccounts: (accounts: Array<string>) => console.log(accounts)
 }
 
 export {AuthStateInitial}

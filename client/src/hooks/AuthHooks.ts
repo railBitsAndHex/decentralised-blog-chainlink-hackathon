@@ -2,7 +2,7 @@ import { useAuth } from "../context/AuthContext";
 import detectEthereumProvider from '@metamask/detect-provider';
 import { networkConfig } from "../states/networkStates.s";
 const useAccountsChanged = () => {
-    const {logout, setError} = useAuth();
+    const {logout, setError, setAccounts} = useAuth();
     const ethProvider : any  = window.ethereum;
     if (ethProvider === undefined) {
         setError("Please install mm!")
@@ -11,7 +11,9 @@ const useAccountsChanged = () => {
     ethProvider.on('accountsChanged', (accounts : Array<string>) => {
         if (accounts.length === 0) {
             logout();
+            return;
         }
+        setAccounts(accounts);
     })
 }
 const useNetworksChanged = () => {
