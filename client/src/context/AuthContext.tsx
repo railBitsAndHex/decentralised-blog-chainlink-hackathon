@@ -18,7 +18,6 @@ export const AuthProvider = ({ children }: AuthPropsType) => {
       const mmAccounts: Array<string> = await mmProvider.request({
         method: "eth_requestAccounts",
       });
-      console.log(mmAccounts);
       if (mmAccounts.length !== 0) {
         setAccounts(mmAccounts);
         setIsAuthenticated(true);
@@ -27,7 +26,7 @@ export const AuthProvider = ({ children }: AuthPropsType) => {
             method: "eth_chainId",
           })
         ).toString();
-        if (networkConfig.networks[parseInt(chainId)] === undefined) {
+        if (networkConfig.networks[chainId] === undefined) {
           setError("Wrong network!");
           return;
         }

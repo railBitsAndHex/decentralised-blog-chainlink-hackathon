@@ -3,7 +3,7 @@ export interface AuthContextInterface {
     isAuthenticated: boolean,
     error: String,
     accounts: Array<String>, 
-    login?: () => void,
+    login: () => void,
     threeIdLogin?: () => void,
     logout:() => void,
     setError:(err: string) =>void,
