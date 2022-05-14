@@ -1,11 +1,8 @@
 import React, { useState, useEffect, useContext } from "react";
-import {
-  AuthContextInterface,
-  AuthPropsType,
-} from "../types/authContext_d_types";
-import { AuthStateInitial } from "../states/AuthContext_s";
+import { AuthContextInterface, AuthPropsType } from "../types/authContext";
+import { AuthStateInitial } from "../states/AuthContext.s";
 import detectEthereumProvider from "@metamask/detect-provider";
-import { networkConfig } from "../states/networkStates_s";
+import { networkConfig } from "../states/networkStates.s";
 
 const AuthContext = React.createContext<AuthContextInterface>(AuthStateInitial);
 
@@ -44,12 +41,16 @@ export const AuthProvider = ({ children }: AuthPropsType) => {
   const logout = () => {
     setIsAuthenticated(false);
     setAccounts([]);
+    setError("");
   };
   const value = {
     error,
+    setError,
     login,
     isAuthenticated,
+    setIsAuthenticated,
     accounts,
+    setAccounts,
     logout,
   };
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
