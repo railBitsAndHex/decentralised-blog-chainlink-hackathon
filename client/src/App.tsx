@@ -8,6 +8,7 @@ import PrivateRoute from "./components/PrivateRoute";
 import HomePage from "./pages/HomePage";
 import ProfilePage from "./pages/ProfilePage";
 import Navbar from "./components/Navbar";
+
 function App() {
   return (
     <AuthProvider>

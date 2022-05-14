@@ -1,12 +1,13 @@
-import React from "react";
 import Logout from "./Logout";
 import { useAuth } from "../context/AuthContext";
 function Navbar() {
-  const { isAuthenticated } = useAuth();
-  console.log(isAuthenticated);
+  const { isAuthenticated, error } = useAuth();
   return (
     <>
-      <nav>{isAuthenticated && <Logout />}</nav>
+      <nav>
+        {isAuthenticated && <Logout />}
+        <div>{error}</div>
+      </nav>
     </>
   );
 }
