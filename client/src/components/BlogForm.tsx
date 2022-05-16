@@ -1,17 +1,30 @@
-import React from "react";
-
+import { title } from "process";
+import React, { useRef } from "react";
+import { IBlogPost } from "./../types/blogpost.d";
 function BlogForm() {
-  const handleSubmit = (e: React.FormEvent) => {
+  const titleRef = useRef<HTMLInputElement>(null);
+  const contentRef = useRef<HTMLTextAreaElement>(null);
+  const handleSubmit = (e: React.FormEvent): void => {
     e.preventDefault();
+    const titleVal: string | undefined = titleRef.current?.value;
+    const contentVal: string | undefined = contentRef.current?.value;
+    if (!(titleVal && contentVal)) return;
+    const blogPost: IBlogPost = {
+      title: titleVal,
+      content: contentVal,
+    };
+    console.log(blogPost);
   };
   return (
     <>
       <form>
         <label>Title</label>
-        <input type="text" />
+        <input ref={titleRef} type="text" />
         <label>Write Post</label>
-        <textarea></textarea>
-        <button type="submit">Create Post</button>
+        <textarea ref={contentRef}></textarea>
+        <button type="submit" onClick={handleSubmit}>
+          Create Post
+        </button>
       </form>
     </>
   );
