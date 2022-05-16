@@ -18,9 +18,9 @@ export const BlogpostProvider = ({ children }: BpPropsType) => {
     bp.set("title", title);
     bp.set("content", content);
     try {
-      const monster = await bp.save();
-      console.log(monster);
-      console.log("Monster has been saved");
+      const bpData = await bp.save();
+      console.log(bpData);
+      console.log("Blogpost has been saved");
     } catch (error) {
       console.log("error");
     }
