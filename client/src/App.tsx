@@ -7,8 +7,13 @@ import Login from "./pages/Login";
 import PrivateRoute from "./components/PrivateRoute";
 import HomePage from "./pages/HomePage";
 import ProfilePage from "./pages/ProfilePage";
+import { useAccountsChanged, useNetworksChanged } from "./hooks/AuthHooks";
 import Navbar from "./components/Navbar";
+import CreateBlogPost from "./pages/CreateBlogPost";
+
 function App() {
+  useAccountsChanged();
+  useNetworksChanged();
   return (
     <AuthProvider>
       <div className="App">
@@ -16,6 +21,7 @@ function App() {
         <Routes>
           <Route path="/" element={<PrivateRoute />}>
             <Route path="/profile-page" element={<ProfilePage />} />
+            <Route path="/create-post" element={<CreateBlogPost />} />
             <Route path="/*" element={<HomePage />} />
           </Route>
           <Route path="/login" element={<Login />} />

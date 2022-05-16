@@ -2,7 +2,7 @@ import React, {ReactNode} from "react"
 export interface AuthContextInterface {
     isAuthenticated: boolean,
     error: String,
-    accounts: Array<String>, 
+    accounts: Array<string>, 
     login: () => void,
     threeIdLogin?: () => void,
     logout:() => void,

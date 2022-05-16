@@ -1,12 +1,18 @@
-import React from "react";
 import Logout from "./Logout";
 import { useAuth } from "../context/AuthContext";
+import { Link } from "react-router-dom";
 function Navbar() {
-  const { isAuthenticated } = useAuth();
-  console.log(isAuthenticated);
+  const { isAuthenticated, error } = useAuth();
   return (
     <>
-      <nav>{isAuthenticated && <Logout />}</nav>
+      {isAuthenticated && (
+        <nav>
+          <Link to="/create-post">Write Post</Link>
+          <Link to="/home">Home</Link>
+          <div>{error}</div>
+          {isAuthenticated && <Logout />}
+        </nav>
+      )}
     </>
   );
 }
