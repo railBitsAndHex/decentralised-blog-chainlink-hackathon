@@ -1,4 +1,5 @@
 export interface IBlogPost {
+    user: string,
     title: string ,
     content: string
 }

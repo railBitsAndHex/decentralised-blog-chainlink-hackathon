@@ -1,10 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useAuth } from "./../context/AuthContext";
 function HomePage() {
+  const { isAuthenticated } = useAuth();
   return (
     <>
       <div>HomePage</div>
-      <Link to="/login">Login</Link>
+      {!isAuthenticated && <Link to="/login">Login</Link>}
     </>
   );
 }
