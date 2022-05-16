@@ -10,6 +10,7 @@ import ProfilePage from "./pages/ProfilePage";
 import { useAccountsChanged, useNetworksChanged } from "./hooks/AuthHooks";
 import Navbar from "./components/Navbar";
 import CreateBlogPost from "./pages/CreateBlogPost";
+import Blogfeed from "./pages/Blogfeed";
 
 function App() {
   useAccountsChanged();
@@ -22,6 +23,7 @@ function App() {
           <Route path="/" element={<PrivateRoute />}>
             <Route path="/profile-page" element={<ProfilePage />} />
             <Route path="/create-post" element={<CreateBlogPost />} />
+            <Route path="/blogfeed" element={<Blogfeed />} />
             <Route path="/*" element={<HomePage />} />
           </Route>
           <Route path="/login" element={<Login />} />
