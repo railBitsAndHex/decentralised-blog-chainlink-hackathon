@@ -2,13 +2,14 @@ import React, { useRef } from "react";
 import { IBlogPost } from "./../types/blogpost.d";
 import { useBlogpost } from "./../context/BlogpostContext";
 import { useAuth } from "./../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 function BlogForm() {
   const titleRef = useRef<HTMLInputElement>(null);
   const contentRef = useRef<HTMLTextAreaElement>(null);
   const { createBlogpost } = useBlogpost();
   const { accounts } = useAuth();
-
-  const handleSubmit = (e: React.FormEvent): void => {
+  const navigate = useNavigate();
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const titleVal: string | undefined = titleRef.current?.value;
     const contentVal: string | undefined = contentRef.current?.value;
@@ -19,6 +20,7 @@ function BlogForm() {
       content: contentVal,
     };
     createBlogpost(blogPost);
+    navigate("/blogfeed");
     console.log(blogPost);
   };
   return (
