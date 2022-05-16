@@ -13,6 +13,7 @@ export const BlogpostProvider = ({ children }: BpPropsType) => {
     // Validation end
     const { user, title, content } = bpObj;
     const Blogpost = Moralis.Object.extend("Blogpost");
+    console.log(Blogpost);
     const bp = new Blogpost();
     bp.set("user", user);
     bp.set("title", title);
@@ -25,8 +26,20 @@ export const BlogpostProvider = ({ children }: BpPropsType) => {
       console.log("error");
     }
   };
+  const getAllBlogpost = async () => {
+    const Blogpost = Moralis.Object.extend("Blogpost");
+    console.log(Blogpost);
+    console.log("getallBp");
+    const query = new Moralis.Query(Blogpost);
+    const results = await query.find({ useMasterKey: true });
+    console.log("##res");
+    console.log(results);
+    console.log("##res end");
+    console.log(typeof results);
+  };
   const value = {
     createBlogpost,
+    getAllBlogpost,
   };
 
   return (
