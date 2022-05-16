@@ -9,6 +9,7 @@ function Navbar() {
         <nav>
           <Link to="/create-post">Write Post</Link>
           <Link to="/home">Home</Link>
+          <Link to="/blogfeed">Feed</Link>
           <div>{error}</div>
           {isAuthenticated && <Logout />}
         </nav>

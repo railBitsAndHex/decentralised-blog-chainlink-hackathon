@@ -5,7 +5,8 @@ export interface IBlogPost {
 }
 
 export interface IBlogpostContext {
-    createBlogpost : (obj: IBlogPost) => void
+    createBlogpost : (obj: IBlogPost) => void,
+    getAllBlogpost: () => void
 }
 
 export type BpPropsType = {
