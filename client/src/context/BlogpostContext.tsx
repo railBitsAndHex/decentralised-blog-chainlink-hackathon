@@ -26,16 +26,13 @@ export const BlogpostProvider = ({ children }: BpPropsType) => {
       console.log("error");
     }
   };
-  const getAllBlogpost = async () => {
+  const getAllBlogpost = async (): Promise<any> => {
     const Blogpost = Moralis.Object.extend("Blogpost");
-    console.log(Blogpost);
-    console.log("getallBp");
     const query = new Moralis.Query(Blogpost);
-    const results = await query.find({ useMasterKey: true });
-    console.log("##res");
+    query.select("title", "content");
+    const results = await query.find();
     console.log(results);
-    console.log("##res end");
-    console.log(typeof results);
+    return results;
   };
   const value = {
     createBlogpost,

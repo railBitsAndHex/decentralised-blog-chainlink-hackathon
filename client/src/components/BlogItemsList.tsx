@@ -1,28 +1,32 @@
 import React, { useState, useEffect } from "react";
-import { useMoralisQuery } from "react-moralis";
 import { useBlogpost } from "../context/BlogpostContext";
+import { useMoralisQuery } from "react-moralis";
+
 function BlogItemsList() {
-  const { getAllBlogpost } = useBlogpost();
-  const [bpArr, setBpArr] = useState([]);
+  type bpost = {
+    [key: string]: any;
+  };
+  const [bpArr, setBpArr] = useState<Array<Object>>([]);
   const { fetch } = useMoralisQuery(
     "Blogpost",
-    (query): any => query.select("*"),
+    (query) => query.select("user", "title", "content"),
     [],
-    { autoFetch: false }
+    { autoFetch: true }
   );
-  const basicQuery = async () => {
-    const results = await fetch();
-    console.log(results);
-    // Do something with the returned Moralis.Object values
-    if (results !== undefined) {
-      console.log(results);
-    }
-  };
-
+  useEffect(() => {
+    fetch({
+      onSuccess: (blogpost) => {
+        setBpArr(blogpost);
+      },
+    });
+  }, [fetch]);
   return (
     <>
       <section>
-        <button onClick={basicQuery}>click for feed to laod</button>
+        <div>
+          {bpArr && bpArr.map((bp: bpost) => <div>{bp.get("title")}</div>)}
+        </div>
+        <button>Click me to view blogpost!</button>
       </section>
     </>
   );

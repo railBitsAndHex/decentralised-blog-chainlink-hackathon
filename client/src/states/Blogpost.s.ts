@@ -7,7 +7,7 @@ const defaultBlogpost : IBlogPost = {
 }
 const initialBlogpostState : IBlogpostContext = {
     createBlogpost : (obj: IBlogPost) => console.log(obj),
-    getAllBlogpost: () =>  console.log("hello world")
+    getAllBlogpost: () =>  new Promise((res, rej) => {console.log("hello")})
 }
 
 export {initialBlogpostState}
