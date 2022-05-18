@@ -42,6 +42,7 @@ export const BlogpostProvider = ({ children }: BpPropsType) => {
       if (result !== undefined) {
         result.set("title", bpObj.title);
         result.set("content", bpObj.content);
+        result.save();
         // other fields insert here
         setRetrieveBp(!retrieveBp);
         console.log("Successful update");
