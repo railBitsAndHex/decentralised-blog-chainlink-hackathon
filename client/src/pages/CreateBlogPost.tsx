@@ -4,9 +4,7 @@ import { BlogpostProvider } from "../context/BlogpostContext";
 function CreateBlogPost() {
   return (
     <>
-      <BlogpostProvider>
-        <BlogForm />
-      </BlogpostProvider>
+      <BlogForm />
     </>
   );
 }
