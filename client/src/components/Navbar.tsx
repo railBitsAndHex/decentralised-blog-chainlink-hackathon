@@ -1,8 +1,10 @@
 import Logout from "./Logout";
 import { useAuth } from "../context/AuthContext";
 import { Link } from "react-router-dom";
+import { useAccountsChanged } from "../hooks/AuthHooks";
 function Navbar() {
-  const { isAuthenticated, error } = useAuth();
+  const { isAuthenticated, error, accounts } = useAuth();
+  useAccountsChanged();
   return (
     <>
       {isAuthenticated && (
@@ -10,6 +12,7 @@ function Navbar() {
           <Link to="/create-post">Write Post</Link>
           <Link to="/home">Home</Link>
           <Link to="/blogfeed">Feed</Link>
+          <span>{accounts[0]}</span>
           <div>{error}</div>
           {isAuthenticated && <Logout />}
         </nav>
