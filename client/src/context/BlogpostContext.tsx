@@ -36,22 +36,48 @@ export const BlogpostProvider = ({ children }: BpPropsType) => {
     const query = new Moralis.Query(Blogpost);
     query.equalTo("user", uid);
     query.equalTo("objectId", bpid);
-    const result = await query.first();
-    console.log(`Result for update ${result}`);
     try {
+      const result = await query.first();
       if (result !== undefined) {
-        result.set("title", bpObj.title);
-        result.set("content", bpObj.content);
-        result.save();
-        // other fields insert here
-        setRetrieveBp(!retrieveBp);
-        console.log("Successful update");
+        try {
+          result.set("title", bpObj.title);
+          result.set("content", bpObj.content);
+          result.save();
+          setRetrieveBp(!retrieveBp);
+          console.log("Successful update");
+        } catch (err: unknown) {
+          if (err instanceof Error) {
+            console.log("Oops somethign went wrong with update");
+            console.log(err.message);
+          }
+        }
       }
     } catch (err: unknown) {
-      if (err instanceof Error) {
-        console.log("Oops somethign went wrong with update");
-        console.log(err.message);
+      if (err instanceof Error) console.log(err.message);
+    }
+  };
+  const deleteBlogpost = async (uid: string, bpid: string) => {
+    const Blogpost = Moralis.Object.extend("Blogpost");
+    const query = new Moralis.Query(Blogpost);
+    query.equalTo("user", uid);
+    query.equalTo("objectId", bpid);
+    try {
+      const result = await query.first();
+      if (result !== undefined) {
+        try {
+          const dObj = await result.destroy();
+          console.log(dObj);
+          setRetrieveBp(!retrieveBp);
+          console.log("Successful update");
+        } catch (err: unknown) {
+          if (err instanceof Error) {
+            console.log("Oops somethign went wrong with update");
+            console.log(err.message);
+          }
+        }
       }
+    } catch (error: unknown) {
+      if (error instanceof Error) console.log(error.message);
     }
   };
   const value = {
@@ -59,6 +85,7 @@ export const BlogpostProvider = ({ children }: BpPropsType) => {
     updateBlogpost,
     retrieveBp,
     setRetrieveBp,
+    deleteBlogpost,
   };
 
   return (
