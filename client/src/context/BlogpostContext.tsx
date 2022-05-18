@@ -26,17 +26,18 @@ export const BlogpostProvider = ({ children }: BpPropsType) => {
       console.log("error");
     }
   };
-  const getAllBlogpost = async (): Promise<any> => {
+  const updateBlogpost = async (
+    uid: string,
+    bpObj: IBlogPost,
+    bpid: string
+  ) => {
     const Blogpost = Moralis.Object.extend("Blogpost");
     const query = new Moralis.Query(Blogpost);
-    query.select("title", "content");
-    const results = await query.find();
-    console.log(results);
-    return results;
+    query.equalTo("user", uid);
+    const results = query.find();
   };
   const value = {
     createBlogpost,
-    getAllBlogpost,
   };
 
   return (

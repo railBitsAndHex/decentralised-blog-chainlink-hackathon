@@ -6,7 +6,6 @@ export interface IBlogPost {
 
 export interface IBlogpostContext {
     createBlogpost : (obj: IBlogPost) => void,
-    getAllBlogpost: () => Promise<any>
 }
 
 export type BpPropsType = {
