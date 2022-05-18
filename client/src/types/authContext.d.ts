@@ -4,7 +4,6 @@ export interface AuthContextInterface {
     error: String,
     accounts: Array<string>, 
     login: () => void,
-    threeIdLogin?: () => void,
     logout:() => void,
     setError:(err: string) =>void,
     setAccounts: (accounts: Array<string>) => void
