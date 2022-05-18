@@ -1,19 +1,27 @@
 import { useAuth } from "../context/AuthContext";
-import detectEthereumProvider from '@metamask/detect-provider';
 import { networkConfig } from "../states/networkStates.s";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { useBlogpost } from "../context/BlogpostContext";
 const useAccountsChanged = () => {
-    const {logout, setError, setAccounts} = useAuth();
+    const {logout, setError, setAccounts, } = useAuth();
+    const {setRetrieveBp, retrieveBp} = useBlogpost()
+    const navigate = useNavigate();
     const ethProvider : any  = window.ethereum;
     if (ethProvider === undefined) {
         setError("Please install mm!")
         return
     }
-    ethProvider.on('accountsChanged', (accounts : Array<string>) => {
+    ethProvider.on('accountsChanged', async (accounts : Array<string>) => {
         if (accounts.length === 0) {
             logout();
+            navigate("/home");
             return;
         }
-        setAccounts(accounts);
+        else {
+            setRetrieveBp(!retrieveBp);
+            setAccounts(accounts);
+        }
     })
 }
 const useNetworksChanged = () => {

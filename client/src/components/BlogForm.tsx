@@ -3,12 +3,15 @@ import { IBlogPost } from "./../types/blogpost.d";
 import { useBlogpost } from "./../context/BlogpostContext";
 import { useAuth } from "./../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { useAccountsChanged } from "../hooks/AuthHooks";
 function BlogForm() {
+  useAccountsChanged();
   const titleRef = useRef<HTMLInputElement>(null);
   const contentRef = useRef<HTMLTextAreaElement>(null);
   const { createBlogpost } = useBlogpost();
   const { accounts } = useAuth();
   const navigate = useNavigate();
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const titleVal: string | undefined = titleRef.current?.value;
@@ -21,8 +24,8 @@ function BlogForm() {
     };
     createBlogpost(blogPost);
     navigate("/blogfeed");
-    console.log(blogPost);
   };
+
   return (
     <>
       <form>

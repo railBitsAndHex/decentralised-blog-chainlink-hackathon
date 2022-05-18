@@ -5,7 +5,10 @@ export interface IBlogPost {
 }
 
 export interface IBlogpostContext {
+    retrieveBp:boolean,
+    setRetrieveBp: (val: boolean) =>void,
     createBlogpost : (obj: IBlogPost) => void,
+    updateBlogpost: (uid:string, bpObj:IBlogpost, bpid:string) => void
 }
 
 export type BpPropsType = {

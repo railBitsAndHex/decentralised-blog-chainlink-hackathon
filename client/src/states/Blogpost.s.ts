@@ -6,7 +6,10 @@ const defaultBlogpost : IBlogPost = {
     content: "default content"
 }
 const initialBlogpostState : IBlogpostContext = {
+    retrieveBp: false,
+    setRetrieveBp: (val:boolean) => console.log(val),
     createBlogpost : (obj: IBlogPost) => console.log(obj),
+    updateBlogpost:(uid:string, bpObj: IBlogPost, bpid: string) => console.log("update bp")
 }
 
 export {initialBlogpostState}
