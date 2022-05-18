@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useContext } from "react";
 import { AuthContextInterface, AuthPropsType } from "../types/authContext";
 import { AuthStateInitial } from "../states/AuthContext.s";
 import detectEthereumProvider from "@metamask/detect-provider";
@@ -14,7 +14,6 @@ export const AuthProvider = ({ children }: AuthPropsType) => {
   const login = async () => {
     const mmProvider: any = await detectEthereumProvider();
     if (mmProvider) {
-      console.log("Ethereum successfully detected!");
       const mmAccounts: Array<string> = await mmProvider.request({
         method: "eth_requestAccounts",
       });

@@ -8,6 +8,7 @@ const BlogpostContext =
 export const useBlogpost = () => useContext(BlogpostContext);
 
 export const BlogpostProvider = ({ children }: BpPropsType) => {
+  const [retrieveBp, setRetrieveBp] = useState(false);
   const createBlogpost = async (bpObj: IBlogPost) => {
     //   Insert validation
     // Validation end
@@ -26,20 +27,37 @@ export const BlogpostProvider = ({ children }: BpPropsType) => {
       console.log("error");
     }
   };
-  const getAllBlogpost = async () => {
+  const updateBlogpost = async (
+    uid: string,
+    bpObj: IBlogPost,
+    bpid: string
+  ) => {
     const Blogpost = Moralis.Object.extend("Blogpost");
-    console.log(Blogpost);
-    console.log("getallBp");
     const query = new Moralis.Query(Blogpost);
-    const results = await query.find({ useMasterKey: true });
-    console.log("##res");
-    console.log(results);
-    console.log("##res end");
-    console.log(typeof results);
+    query.equalTo("user", uid);
+    query.equalTo("objectId", bpid);
+    const result = await query.first();
+    console.log(`Result for update ${result}`);
+    try {
+      if (result !== undefined) {
+        result.set("title", bpObj.title);
+        result.set("content", bpObj.content);
+        // other fields insert here
+        setRetrieveBp(!retrieveBp);
+        console.log("Successful update");
+      }
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        console.log("Oops somethign went wrong with update");
+        console.log(err.message);
+      }
+    }
   };
   const value = {
     createBlogpost,
-    getAllBlogpost,
+    updateBlogpost,
+    retrieveBp,
+    setRetrieveBp,
   };
 
   return (
