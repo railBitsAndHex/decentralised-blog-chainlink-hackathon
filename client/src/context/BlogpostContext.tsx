@@ -10,8 +10,6 @@ export const useBlogpost = () => useContext(BlogpostContext);
 export const BlogpostProvider = ({ children }: BpPropsType) => {
   const [retrieveBp, setRetrieveBp] = useState(false);
   const createBlogpost = async (bpObj: IBlogPost) => {
-    //   Insert validation
-    // Validation end
     const { user, title, content } = bpObj;
     const Blogpost = Moralis.Object.extend("Blogpost");
     console.log(Blogpost);
