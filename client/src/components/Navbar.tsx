@@ -9,12 +9,13 @@ function Navbar() {
     <>
       {isAuthenticated && (
         <nav>
-          <Link to="/create-post">Write Post</Link> <Link to="/home">Home</Link>
+          <Link to="/create-post">Write Post</Link> <Link to="/home">Home</Link>{" "}
           <Link to={`profile-page/` + accounts[0]}>ProfilePage</Link>{" "}
           <Link to="/blogfeed">Feed</Link>{" "}
-          <Link to="/update-profile">UpdateProfile</Link>
-          <span>{accounts[0]}</span>
-          <div>{error}</div>
+          <Link to="/update-profile">UpdateProfile</Link>{" "}
+          <span>
+            {accounts[0]} {error}
+          </span>
           {isAuthenticated && <Logout />}
         </nav>
       )}
