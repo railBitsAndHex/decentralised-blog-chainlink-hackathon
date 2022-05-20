@@ -12,6 +12,7 @@ import Navbar from "./components/Navbar";
 import CreateBlogPost from "./pages/CreateBlogPost";
 import Blogfeed from "./pages/Blogfeed";
 import { BlogpostProvider } from "./context/BlogpostContext";
+import UpdateProfilePage from "./pages/UpdateProfilePage";
 
 function App() {
   useNetworksChanged();
@@ -25,6 +26,7 @@ function App() {
               <Route path="/profile-page" element={<ProfilePage />} />
               <Route path="/create-post" element={<CreateBlogPost />} />
               <Route path="/blogfeed" element={<Blogfeed />} />
+              <Route path="/update-profile" element={<UpdateProfilePage />} />
               <Route path="/*" element={<HomePage />} />
             </Route>
             <Route path="/login" element={<Login />} />
