@@ -9,7 +9,8 @@ const initialBlogpostState : IBlogpostContext = {
     retrieveBp: false,
     setRetrieveBp: (val:boolean) => console.log(val),
     createBlogpost : (obj: IBlogPost) => console.log(obj),
-    updateBlogpost:(uid:string, bpObj: IBlogPost, bpid: string) => console.log("update bp")
+    updateBlogpost:(uid:string, bpObj: IBlogPost, bpid: string) => console.log("update bp"),
+    deleteBlogpost: (uid:string, bpid: string) => console.log("delete blogpost")
 }
 
 export {initialBlogpostState}

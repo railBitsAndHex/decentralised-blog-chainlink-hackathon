@@ -12,7 +12,7 @@ function BlogItemsList() {
 
   const [bpArr, setBpArr] = useState<Array<Object>>([]);
   const { accounts } = useAuth();
-  const { retrieveBp, updateBlogpost } = useBlogpost();
+  const { retrieveBp, updateBlogpost, deleteBlogpost } = useBlogpost();
 
   const handleUpdate = (uid: string, bpid: string) => {
     console.log(`uid: ${uid}, bpid: ${bpid}`);
@@ -23,6 +23,11 @@ function BlogItemsList() {
       content: `Newly updated content for ${bpid} `,
     };
     updateBlogpost(uid, updateObj, bpid);
+  };
+  const handleDelete = (uid: string, bpid: string) => {
+    console.log(`uid: ${uid}, bpid: ${bpid}`);
+    if (uid !== accounts[0]) return;
+    deleteBlogpost(uid, bpid);
   };
   const { fetch } = useMoralisQuery(
     "Blogpost",
@@ -56,11 +61,22 @@ function BlogItemsList() {
                 <div>Content: {bp.get("content")}</div>
                 <div>Writer: {bp.get("user")}</div>
                 {bp.get("user") === accounts[0] && (
-                  <span>
-                    <button onClick={() => handleUpdate(bp.get("user"), bp.id)}>
-                      updatePost
-                    </button>
-                  </span>
+                  <div>
+                    <span>
+                      <button
+                        onClick={() => handleUpdate(bp.get("user"), bp.id)}
+                      >
+                        updatePost
+                      </button>
+                    </span>
+                    <span>
+                      <button
+                        onClick={() => handleDelete(bp.get("user"), bp.id)}
+                      >
+                        delete post
+                      </button>
+                    </span>
+                  </div>
                 )}
               </div>
             ))}

@@ -8,7 +8,8 @@ export interface IBlogpostContext {
     retrieveBp:boolean,
     setRetrieveBp: (val: boolean) =>void,
     createBlogpost : (obj: IBlogPost) => void,
-    updateBlogpost: (uid:string, bpObj:IBlogpost, bpid:string) => void
+    updateBlogpost: (uid:string, bpObj:IBlogpost, bpid:string) => void,
+    deleteBlogpost: (uid:string, bpid:string) => void
 }
 
 export type BpPropsType = {
