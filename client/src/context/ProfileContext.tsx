@@ -12,19 +12,44 @@ export const useProfile = () => useContext(ProfileContext);
 export const ProfileProvider = ({ children }: ProfilePropsType) => {
   const createProfile = async (profileObj: IUserProfile) => {
     const { uid, username, bio } = profileObj;
-    const userProfile = Moralis.Object.extend("UserProfile");
-    console.log(userProfile);
-    const uProfile = new userProfile();
-    uProfile.set("uid", uid);
-    uProfile.set("username", username);
-    uProfile.set("bio", bio);
+    const UserProfile = Moralis.Object.extend("UserProfile");
+    const query = new Moralis.Query(UserProfile);
+    query.equalTo("uid", uid);
     try {
-      const uProfileData = await uProfile.save();
-      console.log(uProfileData);
-      console.log("User profile has been saved");
-    } catch (error: unknown) {
-      if (error instanceof Error) {
-        console.log(error.message);
+      const result = await query.first();
+      if (result !== undefined) {
+        try {
+          result.set("username", username);
+          result.set("bio", bio);
+          result.save();
+          console.log("update success");
+        } catch (err: unknown) {
+          if (err instanceof Error) {
+            console.log("Oops somethign went wrong with update");
+            console.log(err.message);
+          }
+        }
+      } else {
+        const userProfile = new UserProfile();
+        userProfile.set("uid", uid);
+        userProfile.set("username", username);
+        userProfile.set("bio", bio);
+        try {
+          const userProfileData = await userProfile.save();
+          console.log(userProfileData);
+          console.log("New user created!");
+        } catch (err: unknown) {
+          if (err instanceof Error) {
+            console.log(err.message);
+          }
+        }
+      }
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        console.log(
+          "Oops something went wrong with update, exited before result set"
+        );
+        console.log(err.message);
       }
     }
   };

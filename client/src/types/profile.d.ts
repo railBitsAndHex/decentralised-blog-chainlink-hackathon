@@ -1,7 +1,7 @@
 export interface IUserProfile {
     uid: string, 
-    username: string,
-    bio: string
+    username?: string,
+    bio?: string|undefined
 }
 
 export interface IProfileContext {
