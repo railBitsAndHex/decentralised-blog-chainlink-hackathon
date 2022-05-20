@@ -5,7 +5,6 @@ import { useAuth } from "./../context/AuthContext";
 function HomePage() {
   const { isAuthenticated, accounts } = useAuth();
   useAccountsChanged();
-  console.log(accounts);
   return (
     <>
       <div>HomePage</div>
