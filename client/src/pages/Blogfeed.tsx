@@ -5,7 +5,7 @@ function Blogfeed() {
     <>
       <section>
         <BlogItemsList />
-        <h2>HElloBlogfeed</h2>
+        <h2>HelloBlogfeed</h2>
       </section>
     </>
   );

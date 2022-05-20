@@ -4,6 +4,7 @@ import { useMoralisQuery } from "react-moralis";
 import { useAuth } from "./../context/AuthContext";
 import { useAccountsChanged } from "../hooks/AuthHooks";
 import { IBlogPost } from "./../types/blogpost.d";
+import { Link } from "react-router-dom";
 function BlogItemsList() {
   useAccountsChanged();
   type bpost = {
@@ -29,6 +30,8 @@ function BlogItemsList() {
     if (uid !== accounts[0]) return;
     deleteBlogpost(uid, bpid);
   };
+
+  // reading
   const { fetch } = useMoralisQuery(
     "Blogpost",
     (query) => query.select("user", "title", "content"),
@@ -60,6 +63,7 @@ function BlogItemsList() {
                 <div>Title: {bp.get("title")}</div>
                 <div>Content: {bp.get("content")}</div>
                 <div>Writer: {bp.get("user")}</div>
+                <Link to={"/profile-page/" + bp.get("user")}>Writer</Link>
                 {bp.get("user") === accounts[0] && (
                   <div>
                     <span>
