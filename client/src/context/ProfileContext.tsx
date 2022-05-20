@@ -17,19 +17,7 @@ export const ProfileProvider = ({ children }: ProfilePropsType) => {
     query.equalTo("uid", uid);
     try {
       const result = await query.first();
-      if (result !== undefined) {
-        try {
-          result.set("username", username);
-          result.set("bio", bio);
-          result.save();
-          console.log("update success");
-        } catch (err: unknown) {
-          if (err instanceof Error) {
-            console.log("Oops somethign went wrong with update");
-            console.log(err.message);
-          }
-        }
-      } else {
+      if (result === undefined) {
         const userProfile = new UserProfile();
         userProfile.set("uid", uid);
         userProfile.set("username", username);
@@ -44,6 +32,7 @@ export const ProfileProvider = ({ children }: ProfilePropsType) => {
           }
         }
       }
+      return;
     } catch (err: unknown) {
       if (err instanceof Error) {
         console.log(
@@ -53,7 +42,37 @@ export const ProfileProvider = ({ children }: ProfilePropsType) => {
       }
     }
   };
-  const value = { createProfile };
+  const updateProfile = async (profileObj: IUserProfile) => {
+    const { uid, username, bio } = profileObj;
+    const UserProfile = Moralis.Object.extend("UserProfile");
+    const query = new Moralis.Query(UserProfile);
+    query.equalTo("uid", uid);
+    try {
+      const result = await query.first();
+      if (result !== undefined) {
+        try {
+          result.set("username", username);
+          result.set("bio", bio);
+          const updatedProfile = await result.save();
+          console.log(updatedProfile);
+          console.log(`Profile updated successfully!`);
+        } catch (err: unknown) {
+          if (err instanceof Error) {
+            console.log(
+              `Something went wrong in update result\nError Message: ${err.message}`
+            );
+          }
+        }
+      }
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        console.log(
+          `Something went wrong with the update\nError Message: ${err.message}`
+        );
+      }
+    }
+  };
+  const value = { createProfile, updateProfile };
   return (
     <ProfileContext.Provider value={value}>{children}</ProfileContext.Provider>
   );

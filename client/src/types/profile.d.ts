@@ -5,7 +5,8 @@ export interface IUserProfile {
 }
 
 export interface IProfileContext {
-    createProfile: (profileObj: IUserProfile) => void
+    createProfile: (profileObj: IUserProfile) => void,
+    updateProfile: (profileObj: IUserProfile) => void
 }
 
 export type ProfilePropsType = {

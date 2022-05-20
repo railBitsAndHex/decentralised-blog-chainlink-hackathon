@@ -3,12 +3,11 @@ import { useProfile } from "../context/ProfileContext";
 import { IUserProfile } from "./../types/profile.d";
 import { useAuth } from "../context/AuthContext";
 import { useAccountsChanged } from "../hooks/AuthHooks";
-import { createImportSpecifier } from "typescript";
 function UpdateProfileForm() {
   useAccountsChanged();
   const usernameRef = useRef<HTMLInputElement>(null);
   const bioRef = useRef<HTMLTextAreaElement>(null);
-  const { createProfile } = useProfile();
+  const { updateProfile } = useProfile();
   const { accounts } = useAuth();
   const createProfileObj = (
     username: string | undefined,
@@ -32,7 +31,7 @@ function UpdateProfileForm() {
     );
     console.table(profileObj);
     if (profileObj !== undefined) {
-      createProfile(profileObj);
+      updateProfile(profileObj);
     }
   };
   return (
