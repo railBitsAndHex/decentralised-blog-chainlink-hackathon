@@ -26,7 +26,7 @@ function App() {
             <Navbar />
             <Routes>
               <Route path="/" element={<PrivateRoute />}>
-                <Route path="/profile-page" element={<ProfilePage />} />
+                <Route path="/profile-page/:id" element={<ProfilePage />} />
                 <Route path="/create-post" element={<CreateBlogPost />} />
                 <Route path="/blogfeed" element={<Blogfeed />} />
                 <Route path="/update-profile" element={<UpdateProfilePage />} />

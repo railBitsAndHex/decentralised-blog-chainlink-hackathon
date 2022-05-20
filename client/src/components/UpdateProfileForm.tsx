@@ -14,7 +14,6 @@ function UpdateProfileForm() {
   };
   const handleProfileUpdate = () => {
     createProfile(tempPObj);
-    console.log("Pcontext");
   };
   return (
     <>
