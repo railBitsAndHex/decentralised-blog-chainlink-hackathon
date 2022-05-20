@@ -3,12 +3,14 @@ import { useProfile } from "../context/ProfileContext";
 import { IUserProfile } from "./../types/profile.d";
 import { useAuth } from "../context/AuthContext";
 import { useAccountsChanged } from "../hooks/AuthHooks";
+import { useNavigate } from "react-router-dom";
 function UpdateProfileForm() {
   useAccountsChanged();
   const usernameRef = useRef<HTMLInputElement>(null);
   const bioRef = useRef<HTMLTextAreaElement>(null);
   const { updateProfile } = useProfile();
   const { accounts } = useAuth();
+  const navigate = useNavigate();
   const createProfileObj = (
     username: string | undefined,
     bio: string | undefined
@@ -32,6 +34,7 @@ function UpdateProfileForm() {
     console.table(profileObj);
     if (profileObj !== undefined) {
       updateProfile(profileObj);
+      navigate(`/profile-page/${accounts[0]}`);
     }
   };
   return (
