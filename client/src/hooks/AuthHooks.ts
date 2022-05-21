@@ -1,11 +1,14 @@
 import { useAuth } from "../context/AuthContext";
 import { networkConfig } from "../states/networkStates.s";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
 import { useBlogpost } from "../context/BlogpostContext";
+import { useProfile } from "../context/ProfileContext";
+import { createDefaultAccount } from "../states/profile.s";
+import { IUserProfile } from './../types/profile.d';
 const useAccountsChanged = () => {
     const {logout, setError, setAccounts, } = useAuth();
     const {setRetrieveBp, retrieveBp} = useBlogpost()
+    const {createProfile} = useProfile();
     const navigate = useNavigate();
     const ethProvider : any  = window.ethereum;
     if (ethProvider === undefined) {
@@ -15,6 +18,8 @@ const useAccountsChanged = () => {
     ethProvider.on('accountsChanged', async (accounts : Array<string>) => {
         if (accounts.length === 0) {
             logout();
+            const defaultProfileObj: IUserProfile = createDefaultAccount(accounts[0]);
+            createProfile(defaultProfileObj);
             navigate("/home");
             return;
         }

@@ -5,5 +5,12 @@ const initialProfileContext : IProfileContext = {
     createProfile: (profileObj: IUserProfile) => console.log(profileObj),    
     updateProfile: (profileObj: IUserProfile) => console.log(profileObj)    
 }
-
-export {initialProfileContext}
+const createDefaultAccount = (acc: string) : IUserProfile => {
+    const defaultProfileObj : IUserProfile = {
+        uid: acc,
+        username: "",
+        bio: "",
+    }
+    return defaultProfileObj;
+}
+export {initialProfileContext, createDefaultAccount}
