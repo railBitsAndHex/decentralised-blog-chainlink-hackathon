@@ -18,12 +18,12 @@ const useAccountsChanged = () => {
     ethProvider.on('accountsChanged', async (accounts : Array<string>) => {
         if (accounts.length === 0) {
             logout();
-            const defaultProfileObj: IUserProfile = createDefaultAccount(accounts[0]);
-            createProfile(defaultProfileObj);
             navigate("/home");
             return;
         }
         else {
+            const defaultProfileObj: IUserProfile = createDefaultAccount(accounts[0]);
+            createProfile(defaultProfileObj);
             setRetrieveBp(!retrieveBp);
             setAccounts(accounts);
         }
