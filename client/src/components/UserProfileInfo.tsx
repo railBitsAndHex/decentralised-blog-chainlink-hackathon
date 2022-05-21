@@ -4,48 +4,68 @@ import { useAuth } from "../context/AuthContext";
 import { useParams, Params } from "react-router-dom";
 import { useAccountsChanged } from "../hooks/AuthHooks";
 import { useProfile } from "./../context/ProfileContext";
+import { useFollow } from "./../context/FollowContext";
+import { Moralis } from "moralis";
 function UserProfileInfo() {
   useAccountsChanged();
   const { accounts } = useAuth();
   const { retrieveP, setRetrieveP } = useProfile();
+  const { retrieveFollow, setRetrieveFollow } = useFollow();
   type profileType = {
     [key: string]: any;
   };
-  const [profileArr, setProfileArr] = useState<Array<Object>>([]);
-  const paramObj: Readonly<Params<string>> = useParams();
-  console.log(paramObj);
-  const { uid } = paramObj;
+  const [profileObj, setProfileObj] = useState<profileType>({});
+  const { uid } = useParams();
   console.log(`UID: ${uid}`);
-  const { fetch } = useMoralisQuery(
-    "UserProfile",
-    (query) => query.equalTo("uid", uid),
-    [],
-    { autoFetch: true }
-  );
+
   useEffect(() => {
-    fetch({
-      onSuccess: (profile) => {
-        console.log(profile);
-        setProfileArr(profile);
-      },
-    });
-  }, [fetch, accounts, retrieveP]);
+    const getProfileInfo = async (uid: string | undefined) => {
+      const ProfileInfo = Moralis.Object.extend("UserProfile");
+      const query = new Moralis.Query(ProfileInfo);
+      query.equalTo("uid", uid);
+      const results = await query.first();
+      if (results !== undefined) setProfileObj(results);
+      console.log(results);
+    };
+    getProfileInfo(uid);
+  }, [accounts, retrieveFollow, uid]);
   return (
     <>
       <h1>This is profile page</h1>
       <div>
-        {profileArr &&
-          profileArr.map((profile: profileType) => (
-            <div key={profile.get("id")}>
-              <h3>{profile.get("username")}</h3>
-              <div>{profile.get("bio")}</div>
-              <div>Following: {profile.get("following")}</div>
-              <div>Followers: {profile.get("followers")}</div>
-            </div>
-          ))}
+        {Object.keys(profileObj).length !== 0 && (
+          <div>
+            <div>{profileObj.get("username")}</div>
+            <div>Uid: {profileObj.get("uid")}</div>
+            <div>Following: {profileObj.get("following")}</div>
+            <div>Followers: {profileObj.get("followers")}</div>
+          </div>
+        )}
       </div>
     </>
   );
 }
 
 export default UserProfileInfo;
+
+/* 
+
+  const useProfileRefresh = (uid: string | undefined) => {
+    const { fetch } = useMoralisQuery(
+      "UserProfile",
+      (query) => query.equalTo("uid", uid),
+      [],
+      { autoFetch: true }
+    );
+    return fetch;
+  };
+  let fetch = useProfileRefresh(uid);
+
+    console.log(`uid: ${uid}`);
+    fetch({
+      onSuccess: (profile) => {
+        console.log(profile);
+        console.log("here");
+        setProfileArr(profile);
+      },
+    });*/

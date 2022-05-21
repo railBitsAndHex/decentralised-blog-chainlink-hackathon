@@ -8,12 +8,10 @@ interface FollowButtonProps {
 function FollowBtn(props: FollowButtonProps) {
   const { followUser } = useFollow();
   const { accounts } = useAuth();
-  const { setRetrieveP, retrieveP } = useProfile();
   const { following } = props;
   const handleFollow = async () => {
     if (!following) return;
     await followUser(accounts[0], following);
-    setRetrieveP(!retrieveP);
   };
   return (
     <>
