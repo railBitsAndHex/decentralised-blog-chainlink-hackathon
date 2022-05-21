@@ -23,8 +23,7 @@ export const ProfileProvider = ({ children }: ProfilePropsType) => {
         userProfile.set("username", username);
         userProfile.set("bio", bio);
         try {
-          const userProfileData = await userProfile.save();
-          console.log(userProfileData);
+          await userProfile.save();
           console.log("New user created!");
         } catch (err: unknown) {
           if (err instanceof Error) {
@@ -53,8 +52,7 @@ export const ProfileProvider = ({ children }: ProfilePropsType) => {
         try {
           result.set("username", username);
           result.set("bio", bio);
-          const updatedProfile = await result.save();
-          console.log(updatedProfile);
+          await result.save();
           console.log(`Profile updated successfully!`);
         } catch (err: unknown) {
           if (err instanceof Error) {

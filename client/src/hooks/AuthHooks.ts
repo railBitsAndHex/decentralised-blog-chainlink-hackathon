@@ -1,3 +1,4 @@
+import React, {useEffect} from "react"
 import { useAuth } from "../context/AuthContext";
 import { networkConfig } from "../states/networkStates.s";
 import { useNavigate } from "react-router-dom";
@@ -16,17 +17,9 @@ const useAccountsChanged = () => {
         return
     }
     ethProvider.on('accountsChanged', async (accounts : Array<string>) => {
-        if (accounts.length === 0) {
-            logout();
-            navigate("/home");
-            return;
-        }
-        else {
-            const defaultProfileObj: IUserProfile = createDefaultAccount(accounts[0]);
-            createProfile(defaultProfileObj);
-            setRetrieveBp(!retrieveBp);
-            setAccounts(accounts);
-        }
+        logout();
+        navigate("/home");
+        return;
     })
 }
 const useNetworksChanged = () => {
