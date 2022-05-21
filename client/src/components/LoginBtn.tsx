@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { IUserProfile } from "./../types/profile.d";
+import { createDefaultAccount } from "../states/profile.s";
 import { useProfile } from "../context/ProfileContext";
 export default function LoginBtn() {
   const { login, isAuthenticated, error, accounts } = useAuth();
@@ -13,11 +14,7 @@ export default function LoginBtn() {
   };
   useEffect(() => {
     if (isAuthenticated && accounts.length !== 0) {
-      const profileObjDefault: IUserProfile = {
-        uid: accounts[0],
-        username: "",
-        bio: "",
-      };
+      const profileObjDefault: IUserProfile = createDefaultAccount(accounts[0]);
       createProfile(profileObjDefault);
       navigate("/profile-page");
     }

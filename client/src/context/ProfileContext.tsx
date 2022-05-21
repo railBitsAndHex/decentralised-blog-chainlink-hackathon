@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useState, useContext } from "react";
 import { initialProfileContext } from "../states/profile.s";
 import { IProfileContext, ProfilePropsType } from "../types/profile.d";
 import { IUserProfile } from "./../types/profile.d";
@@ -10,8 +10,9 @@ const ProfileContext = React.createContext<IProfileContext>(
 export const useProfile = () => useContext(ProfileContext);
 
 export const ProfileProvider = ({ children }: ProfilePropsType) => {
+  const [retrieveP, setRetrieveP] = useState(false);
   const createProfile = async (profileObj: IUserProfile) => {
-    const { uid, username, bio } = profileObj;
+    const { uid, username, bio, following, followers } = profileObj;
     const UserProfile = Moralis.Object.extend("UserProfile");
     const query = new Moralis.Query(UserProfile);
     query.equalTo("uid", uid);
@@ -22,9 +23,11 @@ export const ProfileProvider = ({ children }: ProfilePropsType) => {
         userProfile.set("uid", uid);
         userProfile.set("username", username);
         userProfile.set("bio", bio);
+        userProfile.set("following", following);
+        userProfile.set("followers", followers);
+
         try {
-          const userProfileData = await userProfile.save();
-          console.log(userProfileData);
+          await userProfile.save();
           console.log("New user created!");
         } catch (err: unknown) {
           if (err instanceof Error) {
@@ -53,8 +56,7 @@ export const ProfileProvider = ({ children }: ProfilePropsType) => {
         try {
           result.set("username", username);
           result.set("bio", bio);
-          const updatedProfile = await result.save();
-          console.log(updatedProfile);
+          await result.save();
           console.log(`Profile updated successfully!`);
         } catch (err: unknown) {
           if (err instanceof Error) {
@@ -72,7 +74,7 @@ export const ProfileProvider = ({ children }: ProfilePropsType) => {
       }
     }
   };
-  const value = { createProfile, updateProfile };
+  const value = { createProfile, updateProfile, retrieveP, setRetrieveP };
   return (
     <ProfileContext.Provider value={value}>{children}</ProfileContext.Provider>
   );

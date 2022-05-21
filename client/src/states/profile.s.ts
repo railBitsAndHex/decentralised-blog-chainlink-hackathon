@@ -2,8 +2,20 @@ import { IProfileContext } from "../types/profile";
 import { IUserProfile } from './../types/profile.d';
 
 const initialProfileContext : IProfileContext = {
+    retrieveP: false,
+    setRetrieveP: (retrieveP: boolean) => console.log(retrieveP),
     createProfile: (profileObj: IUserProfile) => console.log(profileObj),    
     updateProfile: (profileObj: IUserProfile) => console.log(profileObj)    
 }
+const createDefaultAccount = (acc: string) : IUserProfile => {
+    const defaultProfileObj : IUserProfile = {
+        uid: acc,
+        username: "",
+        bio: "",
+        following:0,
+        followers:0
 
-export {initialProfileContext}
+    }
+    return defaultProfileObj;
+}
+export {initialProfileContext, createDefaultAccount}
