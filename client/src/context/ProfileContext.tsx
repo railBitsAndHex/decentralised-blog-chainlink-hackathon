@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useState, useContext } from "react";
 import { initialProfileContext } from "../states/profile.s";
 import { IProfileContext, ProfilePropsType } from "../types/profile.d";
 import { IUserProfile } from "./../types/profile.d";
@@ -10,6 +10,7 @@ const ProfileContext = React.createContext<IProfileContext>(
 export const useProfile = () => useContext(ProfileContext);
 
 export const ProfileProvider = ({ children }: ProfilePropsType) => {
+  const [retrieveP, setRetrieveP] = useState(false);
   const createProfile = async (profileObj: IUserProfile) => {
     const { uid, username, bio, following, followers } = profileObj;
     const UserProfile = Moralis.Object.extend("UserProfile");
@@ -73,7 +74,7 @@ export const ProfileProvider = ({ children }: ProfilePropsType) => {
       }
     }
   };
-  const value = { createProfile, updateProfile };
+  const value = { createProfile, updateProfile, retrieveP, setRetrieveP };
   return (
     <ProfileContext.Provider value={value}>{children}</ProfileContext.Provider>
   );

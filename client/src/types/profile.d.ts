@@ -7,6 +7,8 @@ export interface IUserProfile {
 }
 
 export interface IProfileContext {
+    retrieveP: boolean,
+    setRetrieveP: (retrieveP: boolean) => void,
     createProfile: (profileObj: IUserProfile) => void,
     updateProfile: (profileObj: IUserProfile) => void
 }

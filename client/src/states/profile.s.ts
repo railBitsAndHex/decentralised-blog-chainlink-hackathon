@@ -2,6 +2,8 @@ import { IProfileContext } from "../types/profile";
 import { IUserProfile } from './../types/profile.d';
 
 const initialProfileContext : IProfileContext = {
+    retrieveP: false,
+    setRetrieveP: (retrieveP: boolean) => console.log(retrieveP),
     createProfile: (profileObj: IUserProfile) => console.log(profileObj),    
     updateProfile: (profileObj: IUserProfile) => console.log(profileObj)    
 }

@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import { IUserProfile } from "./../types/profile.d";
 import { createDefaultAccount } from "../states/profile.s";
 import { useProfile } from "../context/ProfileContext";
-import { create } from "domain";
 export default function LoginBtn() {
   const { login, isAuthenticated, error, accounts } = useAuth();
   const { createProfile } = useProfile();

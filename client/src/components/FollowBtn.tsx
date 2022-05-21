@@ -1,11 +1,19 @@
 import React from "react";
 import { useFollow } from "../context/FollowContext";
 import { useAuth } from "./../context/AuthContext";
-function FollowBtn() {
+import { useProfile } from "./../context/ProfileContext";
+interface FollowButtonProps {
+  following: string | undefined;
+}
+function FollowBtn(props: FollowButtonProps) {
   const { followUser } = useFollow();
   const { accounts } = useAuth();
-  const handleFollow = () => {
-    followUser(accounts[0], "0x06dff4533511268d169ba3b10b519727fc7b5224");
+  const { setRetrieveP, retrieveP } = useProfile();
+  const { following } = props;
+  const handleFollow = async () => {
+    if (!following) return;
+    await followUser(accounts[0], following);
+    setRetrieveP(!retrieveP);
   };
   return (
     <>

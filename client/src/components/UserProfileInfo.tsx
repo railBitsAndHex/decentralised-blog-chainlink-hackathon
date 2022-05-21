@@ -3,10 +3,11 @@ import { useMoralisQuery } from "react-moralis";
 import { useAuth } from "../context/AuthContext";
 import { useParams, Params } from "react-router-dom";
 import { useAccountsChanged } from "../hooks/AuthHooks";
-
+import { useProfile } from "./../context/ProfileContext";
 function UserProfileInfo() {
   useAccountsChanged();
   const { accounts } = useAuth();
+  const { retrieveP, setRetrieveP } = useProfile();
   type profileType = {
     [key: string]: any;
   };
@@ -28,7 +29,7 @@ function UserProfileInfo() {
         setProfileArr(profile);
       },
     });
-  }, [fetch, accounts]);
+  }, [fetch, accounts, retrieveP]);
   return (
     <>
       <h1>This is profile page</h1>
@@ -40,7 +41,6 @@ function UserProfileInfo() {
               <div>{profile.get("bio")}</div>
               <div>Following: {profile.get("following")}</div>
               <div>Followers: {profile.get("followers")}</div>
-              <div>{profile.get("bio")}</div>
             </div>
           ))}
       </div>
