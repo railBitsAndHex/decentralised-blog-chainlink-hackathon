@@ -10,6 +10,9 @@ const createDefaultAccount = (acc: string) : IUserProfile => {
         uid: acc,
         username: "",
         bio: "",
+        following:0,
+        followers:0
+
     }
     return defaultProfileObj;
 }

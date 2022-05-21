@@ -11,7 +11,7 @@ export const useProfile = () => useContext(ProfileContext);
 
 export const ProfileProvider = ({ children }: ProfilePropsType) => {
   const createProfile = async (profileObj: IUserProfile) => {
-    const { uid, username, bio } = profileObj;
+    const { uid, username, bio, following, followers } = profileObj;
     const UserProfile = Moralis.Object.extend("UserProfile");
     const query = new Moralis.Query(UserProfile);
     query.equalTo("uid", uid);
@@ -22,6 +22,9 @@ export const ProfileProvider = ({ children }: ProfilePropsType) => {
         userProfile.set("uid", uid);
         userProfile.set("username", username);
         userProfile.set("bio", bio);
+        userProfile.set("following", following);
+        userProfile.set("followers", followers);
+
         try {
           await userProfile.save();
           console.log("New user created!");

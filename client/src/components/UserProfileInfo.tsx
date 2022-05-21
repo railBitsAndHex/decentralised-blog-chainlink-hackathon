@@ -37,7 +37,10 @@ function UserProfileInfo() {
           profileArr.map((profile: profileType) => (
             <div key={profile.get("id")}>
               <h3>{profile.get("username")}</h3>
-              <p>{profile.get("bio")}</p>
+              <div>{profile.get("bio")}</div>
+              <div>Following: {profile.get("following")}</div>
+              <div>Followers: {profile.get("followers")}</div>
+              <div>{profile.get("bio")}</div>
             </div>
           ))}
       </div>
