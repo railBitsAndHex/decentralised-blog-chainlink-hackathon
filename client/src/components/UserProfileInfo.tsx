@@ -6,14 +6,15 @@ import { useAccountsChanged } from "../hooks/AuthHooks";
 import { useProfile } from "./../context/ProfileContext";
 import { useFollow } from "./../context/FollowContext";
 import { Moralis } from "moralis";
+type profileType = {
+  [key: string]: any;
+};
 function UserProfileInfo() {
   useAccountsChanged();
   const { accounts } = useAuth();
   const { retrieveP, setRetrieveP } = useProfile();
   const { retrieveFollow, setRetrieveFollow } = useFollow();
-  type profileType = {
-    [key: string]: any;
-  };
+
   const [profileObj, setProfileObj] = useState<profileType>({});
   const { uid } = useParams();
   console.log(`UID: ${uid}`);

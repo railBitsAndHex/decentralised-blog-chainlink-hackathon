@@ -76,19 +76,6 @@ export const FollowProvider = ({ children }: FollowPropsType) => {
     }
   };
   const unfollowUser = async (uid: string, fuid: string) => {
-    /* Three things that need to be done:
-
-      1. Update the follow table
-            - in the case of a follow operation, do an delete operation
-            - use moralis decrement() fn
-            - do two checks;
-                - check if the curr user exists
-                - check if the following user exists
-                - check if already followed if both exist
-      2. Update the user following count
-      3. Update the followed user followed count
-      
-    */
     if (uid === fuid) return;
     const Follow = Moralis.Object.extend("Follow");
     const UserProfile = Moralis.Object.extend("UserProfile");
