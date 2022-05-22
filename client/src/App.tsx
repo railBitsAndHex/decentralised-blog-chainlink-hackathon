@@ -10,13 +10,15 @@ import Login from "./pages/Login";
 import PrivateRoute from "./components/PrivateRoute";
 import HomePage from "./pages/HomePage";
 import ProfilePage from "./pages/ProfilePage";
-import Navbar from "./components/Navbar";
+import Navbar from "./components/Nbar";
 import CreateBlogPost from "./pages/CreateBlogPost";
 import Blogfeed from "./pages/Blogfeed";
 import UpdateProfilePage from "./pages/UpdateProfilePage";
 
 import { useNetworksChanged } from "./hooks/AuthHooks";
 
+// MUI styling
+import "rsuite/dist/rsuite.min.css";
 function App() {
   useNetworksChanged();
   return (
