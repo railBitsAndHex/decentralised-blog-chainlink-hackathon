@@ -1,12 +1,11 @@
-import React from 'react'
-import LoginBtn from '../components/LoginBtn'
+import React from "react";
+import LoginCard from "../components/LoginCard";
 function Login() {
-    return (
-      <>
-        <div>Login</div>
-        <LoginBtn/>
-      </>
-  )
+  return (
+    <>
+      <LoginCard />
+    </>
+  );
 }
 
-export default Login
+export default Login;
