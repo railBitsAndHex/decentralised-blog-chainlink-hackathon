@@ -1,4 +1,4 @@
-import React, {useEffect} from "react"
+import React, {useState, useEffect} from "react"
 import { useAuth } from "../context/AuthContext";
 import { networkConfig } from "../states/networkStates.s";
 import { useNavigate } from "react-router-dom";
@@ -9,16 +9,25 @@ import { IUserProfile } from './../types/profile.d';
 const useAccountsChanged = () => {
     const {logout, setError, setAccounts, } = useAuth();
     const {setRetrieveBp, retrieveBp} = useBlogpost()
+    const [isLogout, setIsLogout] = useState<boolean>(false)
     const {createProfile} = useProfile();
     const navigate = useNavigate();
     const ethProvider : any  = window.ethereum;
+
+    useEffect(()=> {
+        if(isLogout)
+            navigate("/login")
+    }, [isLogout]);
+    
     if (ethProvider === undefined) {
         setError("Please install mm!")
         return
     }
+    
     ethProvider.on('accountsChanged', async (accounts : Array<string>) => {
+        if (accounts.length === 0) setIsLogout(false)
         logout();
-        navigate("/home");
+        setIsLogout(true)
         return;
     })
 }
