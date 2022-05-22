@@ -1,0 +1,29 @@
+.homepage-sect {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.homepage-div-1 {
+    margin-bottom: 20%;
+}
+.homepage-subtitle {
+    font-weight: 500;
+    color: black;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+}
+.homepage-title {
+    margin-bottom: 20px;
+    font-size: 4em;
+    letter-spacing: 2px;
+}
+.loginPage-btn>span{
+    font-weight: 500;
+    color: #0a0908;
+    letter-spacing: 1px;
+    /* color: #343a40; */
+}
+.loginLink:hover {
+    color:black
+}

@@ -1,0 +1,17 @@
+
+.login-btn-div {
+    display: flex;
+    flex-direction: row;
+    max-height: 60px;
+    align-items: center;
+}
+
+.login-label {
+    position: relative;
+    font-size: large;
+    margin-right: 10px;
+}
+.mmask-icon {
+    max-width: 35px;
+    max-height: 35px;
+}
