@@ -3,6 +3,7 @@ import { useFollow } from "../context/FollowContext";
 import { useAuth } from "./../context/AuthContext";
 import { useProfile } from "./../context/ProfileContext";
 import { Moralis } from "moralis";
+import { Button } from "rsuite";
 interface FollowButtonProps {
   following: string | undefined;
 }
@@ -38,9 +39,23 @@ function FollowBtn(props: FollowButtonProps) {
     <>
       <div>
         {isFollowing ? (
-          <button onClick={handleFollow}>Follow</button>
+          <Button
+            size="md"
+            color="green"
+            appearance="ghost"
+            onClick={handleFollow}
+          >
+            Follow
+          </Button>
         ) : (
-          <button onClick={handleUnfollow}>Unfollow</button>
+          <Button
+            size="md"
+            color="cyan"
+            appearance="primary"
+            onClick={handleUnfollow}
+          >
+            Unfollow
+          </Button>
         )}
       </div>
     </>
