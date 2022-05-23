@@ -19,7 +19,6 @@ function UserProfileInfo() {
 
   const [profileObj, setProfileObj] = useState<profileType>({});
   const { uid } = useParams();
-  console.log(`UID: ${uid}`);
 
   useEffect(() => {
     const getProfileInfo = async (uid: string | undefined) => {
@@ -28,7 +27,6 @@ function UserProfileInfo() {
       query.equalTo("uid", uid);
       const results = await query.first();
       if (results !== undefined) setProfileObj(results);
-      console.log(results);
     };
     getProfileInfo(uid);
   }, [accounts, retrieveFollow, uid]);
@@ -59,25 +57,3 @@ function UserProfileInfo() {
 }
 
 export default UserProfileInfo;
-
-/* 
-
-  const useProfileRefresh = (uid: string | undefined) => {
-    const { fetch } = useMoralisQuery(
-      "UserProfile",
-      (query) => query.equalTo("uid", uid),
-      [],
-      { autoFetch: true }
-    );
-    return fetch;
-  };
-  let fetch = useProfileRefresh(uid);
-
-    console.log(`uid: ${uid}`);
-    fetch({
-      onSuccess: (profile) => {
-        console.log(profile);
-        console.log("here");
-        setProfileArr(profile);
-      },
-    });*/
