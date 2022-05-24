@@ -5,6 +5,7 @@ import { useAuth } from "./../context/AuthContext";
 import { useAccountsChanged } from "../hooks/AuthHooks";
 import { IBlogPost } from "./../types/blogpost.d";
 import { Link } from "react-router-dom";
+import BlogItem from "./BlogItem";
 function BlogItemsList() {
   useAccountsChanged();
   type bpost = {
@@ -14,20 +15,6 @@ function BlogItemsList() {
   const [bpArr, setBpArr] = useState<Array<Object>>([]);
   const { accounts } = useAuth();
   const { retrieveBp, updateBlogpost, deleteBlogpost } = useBlogpost();
-
-  const handleUpdate = (uid: string, bpid: string) => {
-    if (uid !== accounts[0]) return;
-    const updateObj: IBlogPost = {
-      user: accounts[0],
-      title: `Newly updated title for ${bpid}`,
-      content: `Newly updated content for ${bpid} `,
-    };
-    updateBlogpost(uid, updateObj, bpid);
-  };
-  const handleDelete = (uid: string, bpid: string) => {
-    if (uid !== accounts[0]) return;
-    deleteBlogpost(uid, bpid);
-  };
 
   // reading
   const { fetch } = useMoralisQuery(
@@ -45,40 +32,12 @@ function BlogItemsList() {
   }, [fetch, accounts, retrieveBp]);
   return (
     <>
-      <section>
-        <div>
+      <section className="blog-item-list-sect">
+        <div className="blog-item-list-col">
           {bpArr &&
             bpArr.map((bp: bpost) => (
-              <div
-                key={bp.id}
-                style={{
-                  border: "1px solid black",
-                  margin: "10px 0px 10px 0px",
-                  paddingBottom: "10px",
-                }}
-              >
-                <div>Title: {bp.get("title")}</div>
-                <div>Content: {bp.get("content")}</div>
-                <div>Writer: {bp.get("user")}</div>
-                <Link to={"/profile-page/" + bp.get("user")}>Writer</Link>
-                {bp.get("user") === accounts[0] && (
-                  <div>
-                    <span>
-                      <button
-                        onClick={() => handleUpdate(bp.get("user"), bp.id)}
-                      >
-                        updatePost
-                      </button>
-                    </span>
-                    <span>
-                      <button
-                        onClick={() => handleDelete(bp.get("user"), bp.id)}
-                      >
-                        delete post
-                      </button>
-                    </span>
-                  </div>
-                )}
+              <div key={bp.id}>
+                <BlogItem blogpost={bp} />
               </div>
             ))}
         </div>

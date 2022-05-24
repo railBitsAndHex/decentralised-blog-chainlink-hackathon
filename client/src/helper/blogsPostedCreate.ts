@@ -23,7 +23,7 @@ const getBlogPostData = async(uid: string) => {
         }
     }
 }
-const dateParser = (blogpost: blogPost):string => {
+export const dateParser = (blogpost: blogPost):string => {
     const dateCreatedDate :number = Date.parse(blogpost.createdAt);
     const dateOptions: Intl.DateTimeFormatOptions = {
         month:"long",
