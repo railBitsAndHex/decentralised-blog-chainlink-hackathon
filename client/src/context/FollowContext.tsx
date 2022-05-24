@@ -14,20 +14,15 @@ export const FollowProvider = ({ children }: FollowPropsType) => {
     const queryUserProfile = new Moralis.Query(UserProfile);
     const queryFwUserProfile = new Moralis.Query(UserProfile);
     // check if both users exists
-    console.log(`uid in follow: ${uid}`);
-    console.log(`fid in follow: ${fuid}`);
     queryUserProfile.equalTo("uid", uid);
     queryFwUserProfile.equalTo("uid", fuid);
     try {
       const resultSelf = await queryUserProfile.first();
       const resultFollow = await queryFwUserProfile.first();
-      console.log(resultSelf);
-      console.log(resultFollow);
       // if they dont return
       if (!(resultSelf && resultFollow)) return;
     } catch (err: unknown) {
       if (err instanceof Error) {
-        console.log(`${err.message}`);
       }
     }
     // From here check if already following
@@ -38,7 +33,6 @@ export const FollowProvider = ({ children }: FollowPropsType) => {
       const followEntry = await queryFollow.first();
       // if already following then return
       if (followEntry !== undefined) {
-        console.log("Already following!");
         return;
       }
       // from here create new follow
@@ -47,11 +41,8 @@ export const FollowProvider = ({ children }: FollowPropsType) => {
       follow.set("following", fuid);
       try {
         const followData = await follow.save();
-        console.log(followData);
-        console.log("Follow completed");
       } catch (err: unknown) {
         if (err instanceof Error) {
-          console.log(`${err.message}`);
         }
       }
     } catch (err: unknown) {
@@ -82,20 +73,16 @@ export const FollowProvider = ({ children }: FollowPropsType) => {
     const queryUserProfile = new Moralis.Query(UserProfile);
     const queryFwUserProfile = new Moralis.Query(UserProfile);
     // check if both users exists
-    console.log(`uid in follow: ${uid}`);
-    console.log(`fid in follow: ${fuid}`);
     queryUserProfile.equalTo("uid", uid);
     queryFwUserProfile.equalTo("uid", fuid);
     try {
       const resultSelf = await queryUserProfile.first();
       const resultFollow = await queryFwUserProfile.first();
-      console.log(resultSelf);
-      console.log(resultFollow);
       // if they dont return
       if (!(resultSelf && resultFollow)) return;
     } catch (err: unknown) {
       if (err instanceof Error) {
-        console.log(`${err.message}`);
+        console.log(err.message);
       }
     }
     // Check if they are already following each other
@@ -106,16 +93,13 @@ export const FollowProvider = ({ children }: FollowPropsType) => {
       const followEntry = await queryFollow.first();
       // if they do not follow each other then return
       if (followEntry === undefined) {
-        console.log("Users do not follow one another!");
         return;
       }
       // else destroy the follow entry
-      const dFollowObj = await followEntry.destroy();
-      console.log(dFollowObj);
-      console.log(`Successfully unfollowed!`);
+      await followEntry.destroy();
     } catch (err: unknown) {
       if (err instanceof Error) {
-        console.log(`${err.message}`);
+        console.log(err.message);
       }
     }
     // From here we need to decrement the follow and follower count

@@ -16,7 +16,6 @@ function BlogItemsList() {
   const { retrieveBp, updateBlogpost, deleteBlogpost } = useBlogpost();
 
   const handleUpdate = (uid: string, bpid: string) => {
-    console.log(`uid: ${uid}, bpid: ${bpid}`);
     if (uid !== accounts[0]) return;
     const updateObj: IBlogPost = {
       user: accounts[0],
@@ -26,7 +25,6 @@ function BlogItemsList() {
     updateBlogpost(uid, updateObj, bpid);
   };
   const handleDelete = (uid: string, bpid: string) => {
-    console.log(`uid: ${uid}, bpid: ${bpid}`);
     if (uid !== accounts[0]) return;
     deleteBlogpost(uid, bpid);
   };
@@ -44,7 +42,6 @@ function BlogItemsList() {
         setBpArr(blogpost);
       },
     });
-    console.log(`Accounts ${accounts[0]}`);
   }, [fetch, accounts, retrieveBp]);
   return (
     <>
