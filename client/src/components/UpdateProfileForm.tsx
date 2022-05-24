@@ -4,6 +4,8 @@ import { IUserProfile } from "./../types/profile.d";
 import { useAuth } from "../context/AuthContext";
 import { useAccountsChanged } from "../hooks/AuthHooks";
 import { useNavigate } from "react-router-dom";
+import { Form, Button } from "react-bootstrap";
+import "../styles/updateProfile.modules.css";
 function UpdateProfileForm() {
   useAccountsChanged();
   const usernameRef = useRef<HTMLInputElement>(null);
@@ -19,19 +21,16 @@ function UpdateProfileForm() {
     if (username.length === 0 || bio.length === 0) {
       return;
     }
-    console.log(`Username; ${usernameRef}, Bio: ${bio}`);
     return { uid: accounts[0], username: username, bio: bio };
   };
   const handleProfileUpdate = (e: React.FormEvent) => {
     e.preventDefault();
     const usernameVal: string | undefined = usernameRef.current?.value;
     const bioVal: string | undefined = bioRef.current?.value;
-    console.log(`Username val: ${usernameVal}`);
     const profileObj: IUserProfile | undefined = createProfileObj(
       usernameVal,
       bioVal
     );
-    console.table(profileObj);
     if (profileObj !== undefined) {
       updateProfile(profileObj);
       navigate(`/profile-page/${accounts[0]}`);
@@ -39,26 +38,35 @@ function UpdateProfileForm() {
   };
   return (
     <>
-      <section>
-        <form>
-          <label>Username</label>
-          <input
-            ref={usernameRef}
-            type="text"
-            minLength={1}
-            placeholder="Enter your username"
-          />
-          <label>Bio</label>
-          <textarea
-            ref={bioRef}
-            placeholder="Enter a short description about yourself"
-            rows={5}
-            maxLength={100}
-          ></textarea>
-          <button type="submit" onClick={handleProfileUpdate}>
+      <section className="update-profile-sect">
+        <Form className="update-profile-form">
+          <Form.Group>
+            <Form.Label className="update-uname-label">Username</Form.Label>
+            <Form.Control
+              required
+              className="update-uname-input"
+              ref={usernameRef}
+              type="text"
+              minLength={1}
+              placeholder="Enter your username"
+            />
+          </Form.Group>
+          <Form.Group className="update-bio-group">
+            <Form.Label className="update-bio-label">Bio</Form.Label>
+            <Form.Control
+              className="update-content-textarea"
+              as="textarea"
+              required
+              ref={bioRef}
+              placeholder="Enter a short description about yourself. Max 100 characters."
+              rows={5}
+              maxLength={100}
+            />
+          </Form.Group>
+          <Button size="sm" type="submit" onClick={handleProfileUpdate}>
             Update Profile
-          </button>
-        </form>
+          </Button>
+        </Form>
       </section>
     </>
   );

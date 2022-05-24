@@ -12,7 +12,7 @@ function HomePage() {
       <section className="homepage-sect">
         <div className="homepage-div-1">
           <h2 className="homepage-title">blockPost</h2>
-          <div className="homepage-subtitle">The Web3 bloggin application</div>
+          <div className="homepage-subtitle">The Web3 blogging application</div>
           {!isAuthenticated && (
             <Link to="/login" className="loginLink">
               <Button className="loginPage-btn">

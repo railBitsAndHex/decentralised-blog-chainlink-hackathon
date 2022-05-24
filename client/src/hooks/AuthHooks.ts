@@ -7,7 +7,7 @@ import { useProfile } from "../context/ProfileContext";
 import { createDefaultAccount } from "../states/profile.s";
 import { IUserProfile } from './../types/profile.d';
 const useAccountsChanged = () => {
-    const {logout, setError, setAccounts, } = useAuth();
+    const {logout, setError, setAccounts, accounts } = useAuth();
     const {setRetrieveBp, retrieveBp} = useBlogpost()
     const [isLogout, setIsLogout] = useState<boolean>(false)
     const {createProfile} = useProfile();
@@ -17,7 +17,7 @@ const useAccountsChanged = () => {
     useEffect(()=> {
         if(isLogout)
             navigate("/login")
-    }, [isLogout]);
+    }, [isLogout, accounts[0]]);
     
     if (ethProvider === undefined) {
         setError("Please install mm!")

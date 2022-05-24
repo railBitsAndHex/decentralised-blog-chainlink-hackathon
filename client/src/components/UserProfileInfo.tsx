@@ -8,6 +8,7 @@ import { useFollow } from "./../context/FollowContext";
 import { Moralis } from "moralis";
 import "../styles/profileInfoGrid.modules.css";
 import FollowBtn from "./FollowBtn";
+import { accShorten } from "./../helper/helpFn";
 type profileType = {
   [key: string]: any;
 };
@@ -36,19 +37,24 @@ function UserProfileInfo() {
         <section className="dboard-profile-info-sect">
           <section>Profile Image</section>
           <section className="basic-profile-det">
-            <div>Account: {profileObj.get("uid")}</div>
-            <div>
-              Username:{" "}
-              {profileObj.get("username") === ""
-                ? "-"
-                : profileObj.get("username")}
+            <div className="basic-profile-info-1">
+              Account: {accShorten(profileObj.get("uid"))}
             </div>
-            <div>
-              Bio: {profileObj.get("bio") === "" ? "-" : profileObj.get("bio")}
+            <div className="basic-profile-info-2">
+              <div>
+                Username:{" "}
+                {profileObj.get("username") === ""
+                  ? "-"
+                  : profileObj.get("username")}
+              </div>
+              <div>
+                Bio:{" "}
+                {profileObj.get("bio") === "" ? "-" : profileObj.get("bio")}
+              </div>
+              <div>Following: {profileObj.get("following")}</div>
+              <div>Followers: {profileObj.get("followers")}</div>
+              {uid !== accounts[0] && <FollowBtn following={uid} />}
             </div>
-            <div>Following: {profileObj.get("following")}</div>
-            <div>Followers: {profileObj.get("followers")}</div>
-            {uid !== accounts[0] && <FollowBtn following={uid} />}
           </section>
         </section>
       )}

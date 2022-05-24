@@ -18,7 +18,6 @@ function ProfileStats() {
   useAccountsChanged();
   const [statsData, setStatsData] = useState([]);
   const { uid } = useParams();
-  console.log(`UID: ${uid}`);
   useEffect(() => {
     const getData = async (uid: string) => {
       const data: any = await bpGraphData(uid);

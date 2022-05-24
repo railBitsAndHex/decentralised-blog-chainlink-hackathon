@@ -1,11 +1,20 @@
+.loginC-container {
+    display: grid;
+    width: 100vw;
+    height: 80vh;
+    grid-template-columns: 50% 50%;
+}
 .loginC-fbox-grid{
-    height:70vh;
+    grid-column: 2;
+    display: flex;
+    align-items: center;
 }
 .loginC-flexbox-item{
+    height:50%;
+    width: 70%;
     border:2px solid black;
     border-radius: 10px;
     margin-right:10%;
-    height: 300px;
 }
 .loginCfb-item-inner {
     display: flex;
@@ -15,7 +24,7 @@
 }
 .loginCard-desc{
     color:black;
-    margin-top: 20%;
+    margin-top: 10%;
 }
 .loginCard-desc>h3{
     letter-spacing: 1px;

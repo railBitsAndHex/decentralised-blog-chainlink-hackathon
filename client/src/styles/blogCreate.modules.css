@@ -1,0 +1,27 @@
+.blog-create-sect {
+    width: 100vw;
+    height: 90vh;
+    display: grid;
+    grid-template-columns: 15% 70% 15%;
+}
+.blog-create-form{
+    grid-column: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    margin-top: 5%;
+}
+.blog-content-title,
+.blog-content-label {
+    font-size: 2em;
+    color: #003566
+}
+.blog-create-title,
+.blog-create-content {
+    border: 2px solid #6c757d;
+}
+.blog-create-content{
+    height: 50vh;
+    max-height: 60vh;
+
+}

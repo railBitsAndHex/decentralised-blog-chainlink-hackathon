@@ -20,13 +20,13 @@ function BlogPostInfo() {
         <div>
           {tableData && (
             <Table fillHeight={true} data={tableData}>
-              <Table.Column flexGrow={1} align="center" resizable>
+              <Table.Column flexGrow={1} align="center">
                 <Table.HeaderCell>
                   <span>Title</span>
                 </Table.HeaderCell>
                 <Table.Cell dataKey="title" />
               </Table.Column>
-              <Table.Column flexGrow={1} align="center" resizable>
+              <Table.Column flexGrow={1} align="center">
                 <Table.HeaderCell>
                   <span>Posted On</span>
                 </Table.HeaderCell>

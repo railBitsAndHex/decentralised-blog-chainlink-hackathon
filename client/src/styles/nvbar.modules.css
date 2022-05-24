@@ -1,0 +1,17 @@
+.nvbar{
+    width:100vw;
+    display: grid;
+    grid-template-columns: 20% 80%;
+    justify-content: space-around;
+    align-items: center;
+}
+.nvbar-brand {
+    grid-column: 1;
+}
+.nvbar-dropdown{
+    margin-right: 20px;
+    grid-column: 2;
+    margin-left: auto;
+    color: black;
+    /* font-weight: 700; */
+}

@@ -14,19 +14,11 @@ function LoginCard() {
   };
   return (
     <>
-      <Container>
-        <Content>
-          <FlexboxGrid
-            className="loginC-fbox-grid"
-            justify="end"
-            align="middle"
-          >
-            <FlexboxGrid.Item colspan={8} className="loginC-flexbox-item">
-              {cardDes()}
-            </FlexboxGrid.Item>
-          </FlexboxGrid>
-        </Content>
-      </Container>
+      <section className="loginC-container">
+        <div className="loginC-fbox-grid">
+          <div className="loginC-flexbox-item">{cardDes()}</div>
+        </div>
+      </section>
     </>
   );
 }

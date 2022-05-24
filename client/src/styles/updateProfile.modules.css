@@ -1,0 +1,25 @@
+.update-profile-sect{
+    width: 100vw;
+    height: 90vh;
+    display: grid;
+    grid-template-columns: 15% 70% 15%;
+}
+.update-profile-form{
+    grid-column: 2;
+    display: flex;
+    flex-direction: column;
+    margin-top: 5%;
+}
+.update-uname-label,
+.update-bio-label {
+    font-size: 2em;
+    color: #003566
+
+}
+.update-uname-input,
+.update-content-textarea{
+    border: 2px solid #6c757d;
+}
+.update-bio-group {
+    margin-bottom: 5%;
+}
