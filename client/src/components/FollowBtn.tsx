@@ -4,6 +4,8 @@ import { useAuth } from "./../context/AuthContext";
 import { useProfile } from "./../context/ProfileContext";
 import { Moralis } from "moralis";
 import { Button } from "rsuite";
+
+import "../styles/followBtn.modules.css";
 interface FollowButtonProps {
   following: string | undefined;
 }
@@ -37,7 +39,7 @@ function FollowBtn(props: FollowButtonProps) {
   };
   return (
     <>
-      <div>
+      <div className="follow-btn-div">
         {isFollowing ? (
           <Button
             size="md"
