@@ -4,6 +4,10 @@ import { useBlogpost } from "./../context/BlogpostContext";
 import { useAuth } from "./../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { useAccountsChanged } from "../hooks/AuthHooks";
+
+import { Form, Button } from "react-bootstrap";
+
+import "../styles/blogCreate.modules.css";
 function BlogForm() {
   useAccountsChanged();
   const titleRef = useRef<HTMLInputElement>(null);
@@ -28,15 +32,35 @@ function BlogForm() {
 
   return (
     <>
-      <form>
-        <label>Title</label>
-        <input ref={titleRef} type="text" />
-        <label>Write Post</label>
-        <textarea ref={contentRef}></textarea>
-        <button type="submit" onClick={handleSubmit}>
-          Create Post
-        </button>
-      </form>
+      <section className="blog-create-sect">
+        <Form className="blog-create-form">
+          <Form.Group>
+            <Form.Label className="blog-content-title">Title</Form.Label>
+            <Form.Control
+              placeholder="Enter title here"
+              className="blog-create-title"
+              required
+              name="title"
+              ref={titleRef}
+              type="text"
+            />
+          </Form.Group>
+          <Form.Group>
+            <Form.Label className="blog-content-label">Write Post</Form.Label>
+            <Form.Control
+              className="blog-create-content"
+              placeholder="Write blog content here"
+              as="textarea"
+              required
+              type="textarea"
+              ref={contentRef}
+            />
+          </Form.Group>
+          <Button size="lg" type="submit" variant="dark" onClick={handleSubmit}>
+            Create Post
+          </Button>
+        </Form>
+      </section>
     </>
   );
 }
