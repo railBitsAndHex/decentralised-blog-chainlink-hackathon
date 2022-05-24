@@ -10,9 +10,7 @@ import BlogPostInfo from "../components/BlogPostInfo";
 function ProfilePage() {
   const { accounts, error } = useAuth();
   const paramObj: Readonly<Params<string>> = useParams();
-  console.log(paramObj);
   const { uid } = paramObj;
-  console.log(`UID: ${uid}`);
   useAccountsChanged();
   return (
     <>
@@ -22,8 +20,6 @@ function ProfilePage() {
         <ProfileStats />
         <TokenBalance />
         <BlogPostInfo />
-        <Link to="/create-post">CreateBlogPost</Link>
-        <Link to="/blogfeed">Blogfeed</Link>
       </main>
     </>
   );

@@ -17,6 +17,23 @@
 }
 .basic-profile-det {
     text-align: left;
+    font-weight: 700;
+    /* display: grid;
+    height: 100%;
+    grid-template-rows: 40% 60%; */
+}
+.basic-profile-info-1 {
+    font-size: 2em;
+    grid-row: 1;
+    margin-top: auto;
+}
+.basic-profile-info-2 {
+    font-size: 1em;
+    display: flex;
+    flex-direction: column;
+    /* height: 9em; */
+    grid-row: 2;
+    justify-content: space-around;
 }
 .posting-stats-sect {
     grid-column: 1;
