@@ -3,7 +3,9 @@ import { useAuth } from "../context/AuthContext";
 import { Link } from "react-router-dom";
 import { useAccountsChanged } from "../hooks/AuthHooks";
 
-import { Navbar, Nav } from "rsuite";
+import { Navbar, Nav, Dropdown } from "rsuite";
+import "../styles/nvbar.modules.css";
+import { accShorten } from "../helper/helpFn";
 function Nbar() {
   const { isAuthenticated, error, accounts } = useAuth();
   useAccountsChanged();
@@ -20,8 +22,36 @@ function Nbar() {
   };
   return (
     <>
-      <Navbar style={styles.barStyle}>
-        <Navbar.Brand style={styles.brandStyle}>blockPOST</Navbar.Brand>
+      <Navbar style={styles.barStyle} className="nvbar">
+        <Navbar.Brand className="nvbar-brand" style={styles.brandStyle}>
+          blockPOST
+        </Navbar.Brand>
+        {isAuthenticated && (
+          <Dropdown
+            placement="bottomEnd"
+            title={accShorten(accounts[0])}
+            className="nvbar-dropdown"
+          >
+            <Link to="home">
+              <Dropdown.Item>Home</Dropdown.Item>
+            </Link>
+            <Link to="blogfeed">
+              <Dropdown.Item>View Feed</Dropdown.Item>
+            </Link>
+            <Link to="create-post">
+              <Dropdown.Item>Create new blogpost</Dropdown.Item>
+            </Link>
+            <Link to={"/profile-page/" + accounts[0]}>
+              <Dropdown.Item>Dashboard</Dropdown.Item>
+            </Link>
+            <Link to="update-profile">
+              <Dropdown.Item>Edit Profile</Dropdown.Item>
+            </Link>
+            <Dropdown.Item>
+              <Logout />
+            </Dropdown.Item>
+          </Dropdown>
+        )}
       </Navbar>
     </>
   );
