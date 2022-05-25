@@ -1,51 +1,47 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useRef } from "react";
 
-import { Button } from "react-bootstrap";
-import { Moralis } from "moralis";
-import { useAccountsChanged, useNetworksChanged } from "../hooks/AuthHooks";
-import VaultJson from "../chains/Vault.json";
-import MockTokenJson from "../chains/MockToken.json";
-import { useAuth } from "./../context/AuthContext";
-
+import { useTx } from "../context/TransactionContext";
+import { useAuth } from "../context/AuthContext";
+import { Button, FormControl, InputGroup } from "react-bootstrap";
+import { useParams } from "react-router-dom";
+import { BigNumber, ethers } from "ethers";
+import { Form } from "rsuite";
 function DonateTokens() {
-  useAccountsChanged();
-  useNetworksChanged();
-  const { error, setError, accounts } = useAuth();
-  const tokenAddress: string =
-    process.env.REACT_APP_MOCKTOKEN_ADDRESS!.toString();
-  const vaultAddress: string = process.env.REACT_APP_VAULT_ADDRESS!.toString();
-  const ethers = Moralis.web3Library;
-  const { abi } = MockTokenJson;
-  const provider = ethers.getDefaultProvider();
-  const accAddr = ethers.utils.getAddress(accounts[0]);
-  const vaultAddr = ethers.utils.getAddress(vaultAddress);
-  const mockTokenAddr = ethers.utils.getAddress(tokenAddress);
-  const readAllowance = async () => {
-    await Moralis.enableWeb3();
-    const mockTokenContract = new ethers.Contract(tokenAddress, abi, provider);
-    const readOptions = {
-      contractAddress: mockTokenAddr,
-      functionName: "allowance",
-      abi: abi,
-      params: {
-        owner: accAddr,
-        spender: vaultAddr,
-      },
-    };
-    const allowance = await Moralis.executeFunction(readOptions);
-    console.log(allowance.toString());
-  };
+  const { uid } = useParams();
+  const { accounts } = useAuth();
+  const { donate } = useTx();
+  const [value, setValue] = useState<string>("0");
+  const valueRef = useRef<HTMLInputElement>(null);
 
+  const handleDonate = async () => {
+    if (accounts[0] === uid) return;
+    if (uid === undefined) return;
+    if (checkIfNotFloat(value)) setValue("0");
+    const hardCodedDonate = ethers.utils.parseEther(value);
+    await donate(hardCodedDonate, uid, "31337");
+    setValue("0");
+  };
+  const checkIfNotFloat = (inputStr: string): boolean => {
+    console.log(`input: ${inputStr}`);
+    console.log(parseFloat(inputStr) === NaN);
+    return isNaN(parseFloat(inputStr));
+  };
+  const handleChange = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (valueRef.current !== undefined && valueRef.current !== null)
+      setValue(valueRef.current.value);
+  };
   return (
     <>
-      {error === "" && (
-        <div>
-          <Button variant="danger" onClick={readAllowance}>
-            Check Allowance
-          </Button>
-          <Button variant="outline-primary">Donate Mock Tokens</Button>
-        </div>
-      )}
+      <InputGroup>
+        <FormControl
+          ref={valueRef}
+          value={value}
+          placeholder="Enter amount of tokens to donate"
+          onChange={handleChange}
+        />
+      </InputGroup>
+      <Button onClick={handleDonate}>Donate Tokens</Button>
     </>
   );
 }
