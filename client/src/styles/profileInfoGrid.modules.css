@@ -60,13 +60,19 @@
     border: 2px solid black;
     border-radius: 20px;
     margin: 20px;
+    display: grid;
+    grid-template-columns: 10% 80%;
+}
+.token-balance-all {
+    grid-column: 2;
+    text-align: left;
 }
 .token-bal-title {
     color: black;
     text-align: left;
     font-size: 2em;
      margin-top: 10px;
-    margin-left: 15px;
+     margin-bottom: 15px;
 }
 .blogpost-info-sect {
     grid-row: 2;
