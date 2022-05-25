@@ -99,7 +99,7 @@ function BlogItem(props: IProps) {
                 )}
               </div>
             ) : (
-              <span>bpContent</span>
+              <span>{bpContent}</span>
             )}
           </div>
         </section>
