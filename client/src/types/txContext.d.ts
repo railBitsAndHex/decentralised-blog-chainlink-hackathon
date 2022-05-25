@@ -15,7 +15,7 @@ export interface IMappings {
     [key:string]: chainId    
 }
 
-export type TSendOptions = {
+export type TReadSendOptions = {
     contractAddress: string,
     functionName: string,
     abi: object,
@@ -26,8 +26,10 @@ export type TSendOptions = {
 export interface ITxContext {
     approveDep: boolean,
     donatedDep: boolean,
+    withdrawDep: boolean
     setApproveDep: (approveDep: boolean)  => void,
     setDonatedDep: (donatedDep: boolean) => void,
+    setWithdrawDep: (withdrawDep: boolean) => void,
     approve: (chainId: string) => void,
     donate: (amounts: BigNumber, donee: string, chainId: string) => void,
     withdraw: (chainId: string) => void

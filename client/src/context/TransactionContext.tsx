@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import { InitialTxContext } from "../states/TxContext.s";
-import { ITxContext, TSendOptions, TxPropsType } from "./../types/txContext.d";
+import { ITxContext, TxPropsType } from "./../types/txContext.d";
 import { BigNumber } from "ethers";
 import { Moralis } from "moralis";
 import MockTokenJson from "../chains/MockToken.json";
@@ -14,6 +14,7 @@ export const useTx = () => useContext(TxContext);
 export const TxProvider = ({ children }: TxPropsType) => {
   const [approveDep, setApproveDep] = useState<boolean>(false);
   const [donatedDep, setDonatedDep] = useState<boolean>(false);
+  const [withdrawDep, setWithdrawDep] = useState<boolean>(false);
 
   const ethers = Moralis.web3Library;
 
@@ -62,6 +63,7 @@ export const TxProvider = ({ children }: TxPropsType) => {
         donee
       );
       const donateTxReceipt = await donateTx.wait();
+      console.log(donateTxReceipt);
       if (donateTxReceipt.status === 1) {
         setDonatedDep(!donatedDep);
       }
@@ -89,8 +91,9 @@ export const TxProvider = ({ children }: TxPropsType) => {
     try {
       const withdrawTx = await vaultContract.withdraw(mockTokenAddr);
       const withdrawTxReceipt = await withdrawTx.wait();
+      console.log(withdrawTxReceipt);
       if (withdrawTxReceipt.status === 1) {
-        setDonatedDep(!donatedDep);
+        setWithdrawDep(!withdrawDep);
       }
     } catch (err: unknown) {
       if (err instanceof Error) {
@@ -105,6 +108,8 @@ export const TxProvider = ({ children }: TxPropsType) => {
     setApproveDep,
     donatedDep,
     setDonatedDep,
+    withdrawDep,
+    setWithdrawDep,
     approve,
     withdraw,
     donate,
