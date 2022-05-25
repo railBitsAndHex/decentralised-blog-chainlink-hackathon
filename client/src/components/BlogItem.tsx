@@ -23,15 +23,7 @@ function BlogItem(props: IProps) {
   const dateStr = dateParser(bp);
   const userShortened = accShorten(bp.get("user"));
   const bpContent = bp.get("content");
-  const handleUpdate = (uid: string, bpid: string) => {
-    if (uid !== accounts[0]) return;
-    const updateObj: IBlogPost = {
-      user: accounts[0],
-      title: `Newly updated title for ${bpid}`,
-      content: `Newly updated content for ${bpid} `,
-    };
-    updateBlogpost(uid, updateObj, bpid);
-  };
+
   const handleDelete = (uid: string, bpid: string) => {
     if (uid !== accounts[0]) return;
     deleteBlogpost(uid, bpid);
@@ -54,15 +46,6 @@ function BlogItem(props: IProps) {
           <div className="update-delete-div">
             {bp.get("user") === accounts[0] && (
               <div>
-                <span>
-                  <Button
-                    variant="info"
-                    onClick={() => handleUpdate(bp.get("user"), bp.id)}
-                  >
-                    updatePost
-                  </Button>
-                </span>
-                {"   "}
                 <span>
                   <Button
                     variant="danger"
