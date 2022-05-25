@@ -9,6 +9,7 @@ import { Moralis } from "moralis";
 import "../styles/profileInfoGrid.modules.css";
 import FollowBtn from "./FollowBtn";
 import { accShorten } from "./../helper/helpFn";
+import DonateApprove from "./DonateApprove";
 type profileType = {
   [key: string]: any;
 };
@@ -53,7 +54,11 @@ function UserProfileInfo() {
               </div>
               <div>Following: {profileObj.get("following")}</div>
               <div>Followers: {profileObj.get("followers")}</div>
-              {uid !== accounts[0] && <FollowBtn following={uid} />}
+              {uid !== accounts[0] && (
+                <div>
+                  <FollowBtn following={uid} /> <DonateApprove />
+                </div>
+              )}
             </div>
           </section>
         </section>

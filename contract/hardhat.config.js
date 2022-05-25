@@ -7,6 +7,7 @@ require("solidity-coverage");
 require("hardhat-deploy");
 require("@nomiclabs/hardhat-ethers");
 require("hardhat-deploy-ethers");
+require("./tasks/whitelistTokens");
 // This is a sample Hardhat task. To learn how to create your own go to
 // https://hardhat.org/guides/create-task.html
 task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
@@ -76,13 +77,4 @@ module.exports = {
       default: 2,
     },
   },
-
-  // gasReporter: {
-  //   enabled: process.env.REPORT_GAS !== undefined,
-  //   currency: "USD",
-  // },
-  // etherscan: {
-  //   apiKey: process.env.ETHERSCAN_API_KEY,
-  // },
 };
-/* getNamedAccounts: () => Promise<{ [name: string]: string }>: a function returning an object whose keys are names and values are addresses. It is parsed from the namedAccounts configuration (see Configuration). */

@@ -1,0 +1,12 @@
+{
+    "chainId": {
+        "31337" : {
+            "VaultContract" : {
+                "address": "0x14b4df6e2e64779a315900e0b00cc3ee372ada94"
+            }, 
+            "MockToken" : {
+                "address": "0x7639c8595ba55fa2fffe198485cb263d750fe73f"
+            }
+        }
+    }
+}
