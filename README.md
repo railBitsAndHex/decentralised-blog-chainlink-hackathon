@@ -45,6 +45,9 @@ cd contracts
 yarn add 
 <!-- Start up a local instance of hardhat  -->
 yarn hardhat node
+```
+Open up another instance of VScode Terminal
+```
 <!-- Deploy contracts -->
 yarn hardhat deploy --network localhost
 ````
