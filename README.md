@@ -3,7 +3,7 @@
 ## **WARNING**
 All code in this repository has **NOT BEEN AUDITED** and **SHOULD NOT** be used for production.
 This is especially so for the smart contracts.
-I will not be liable for any losses incurred for utilization of code in this repository.
+The author of this repository will not be liable for any losses incurred for utilization of code in this repository.
 
 
 <hr/>
@@ -28,29 +28,30 @@ Users can also donate tokens to another user by sending their tokens to the smar
 
 Open up a VSCode terminal instance
 
-````
+```
 <!-- navigate into the client folder, containing client side code -->
 cd client
 <!-- to install all the packages in package.json -->
 yarn add
 <!-- To start a client side localhost instance -->
 yarn start
-````
-Open up another instance of a VSCode terminal 
+```
+
+### To deploy contracts
 
 ```
-<!-- navigate to folder containing hardhat project -->
+<!-- Navigate into the folder containing the hardhat project -->
 cd contracts
-<!-- Install all the necessary packages in package.json -->
-yarn add 
-<!-- Start up a local instance of hardhat  -->
-yarn hardhat node
 ```
-Open up another instance of VScode Terminal
-```
-<!-- Deploy contracts -->
+
+#### Deploying to localhost 
+````
 yarn hardhat deploy --network localhost
 ````
+#### Deploying to Testnet (Goerli)
+```
+yarn hardhat deploy --network goerli
+```
 
 ### **REMINDER**
 ### **PLEASE DO NOT USE A WALLET CONTAINING REAL MONEY TO INTERACT WITH THIS APPLICATION**
