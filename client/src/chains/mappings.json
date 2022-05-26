@@ -10,10 +10,10 @@
         },
         "5" : {
             "VaultContract" : {
-                "address": "0x14b4df6E2E64779a315900e0b00cC3Ee372ADA94"
+                "address": "0xF3369C4d8Ccf9361366f4a5197E3EB81dbc4CC19"
             }, 
             "MockToken" : {
-                "address": "0x7639C8595Ba55Fa2FffE198485CB263D750FE73f"
+                "address": "0x9Cb547F263f447e839599Ff5d5244a9adfDfd926"
             }
         }
     }
