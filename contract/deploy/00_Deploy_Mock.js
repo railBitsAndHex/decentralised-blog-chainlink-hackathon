@@ -11,7 +11,7 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
       contract: "MockToken",
       from: deployer,
       log: true,
-      args: [10000000],
+      args: [ethers.utils.parseEther("100000000")],
     });
   } else if (chainId == 5) {
     log("Goerli network detected! Deploying mock token...");
