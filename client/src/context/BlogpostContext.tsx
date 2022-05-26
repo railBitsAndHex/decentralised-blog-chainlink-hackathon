@@ -12,15 +12,12 @@ export const BlogpostProvider = ({ children }: BpPropsType) => {
   const createBlogpost = async (bpObj: IBlogPost) => {
     const { user, title, content } = bpObj;
     const Blogpost = Moralis.Object.extend("Blogpost");
-    console.log(Blogpost);
     const bp = new Blogpost();
     bp.set("user", user);
     bp.set("title", title);
     bp.set("content", content);
     try {
       const bpData = await bp.save();
-      console.log(bpData);
-      console.log("Blogpost has been saved");
     } catch (error) {
       console.log("error");
     }

@@ -22,6 +22,7 @@ function TokenBalanceInfo() {
 
   useEffect(() => {
     const getBalanceWallet = async () => {
+      await Moralis.enableWeb3();
       const { abi } = MockTokenJson;
       const readOptions: TReadSendOptions = {
         contractAddress: tokenAddress,
@@ -35,6 +36,7 @@ function TokenBalanceInfo() {
       setBalanceWallet(formatEther(BigNumber.from(balance.toString())));
     };
     const getBalanceClaimable = async () => {
+      await Moralis.enableWeb3();
       const { abi } = VaultJson;
       const readOptions: TReadSendOptions = {
         contractAddress: vaultAddress,
