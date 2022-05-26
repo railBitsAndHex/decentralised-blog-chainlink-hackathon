@@ -20,6 +20,7 @@ import { useNetworksChanged } from "./hooks/AuthHooks";
 
 // MUI styling
 import "rsuite/dist/rsuite.min.css";
+import { Moralis } from "moralis";
 function App() {
   useNetworksChanged();
   return (

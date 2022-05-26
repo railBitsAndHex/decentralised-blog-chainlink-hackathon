@@ -1,12 +1,13 @@
 .blog-item-list-sect{
     width: 100vw;
-    height: 100vh;
+    min-height: 100vh;
     display: grid;
     overflow-y: auto;
     grid-template-columns: 15% 70% 15%;
     margin-bottom: 50px;
 }
 .blog-item-list-col {
+    height: 80vh;
     grid-column: 2;
     width: 100%;
 }

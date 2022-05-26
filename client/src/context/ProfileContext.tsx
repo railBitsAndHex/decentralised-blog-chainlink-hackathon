@@ -28,6 +28,7 @@ export const ProfileProvider = ({ children }: ProfilePropsType) => {
 
         try {
           await userProfile.save();
+          setRetrieveP(!retrieveP);
           console.log("New user created!");
         } catch (err: unknown) {
           if (err instanceof Error) {
@@ -57,6 +58,7 @@ export const ProfileProvider = ({ children }: ProfilePropsType) => {
           result.set("username", username);
           result.set("bio", bio);
           await result.save();
+          setRetrieveP(!retrieveP);
           console.log(`Profile updated successfully!`);
         } catch (err: unknown) {
           if (err instanceof Error) {

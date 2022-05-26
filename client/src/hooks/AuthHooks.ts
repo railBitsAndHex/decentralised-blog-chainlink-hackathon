@@ -41,6 +41,7 @@ const useNetworksChanged = () => {
     ethProvider.on('chainChanged', (chainId: string) => {
         if (networkConfig.networks[parseInt(chainId)] === undefined) {
             setError("Wrong network!");
+            console.log("Wrong network")
             return;
         }
         setError("")

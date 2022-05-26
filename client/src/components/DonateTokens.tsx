@@ -6,6 +6,7 @@ import { Button, FormControl, InputGroup } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import { BigNumber, ethers } from "ethers";
 import { Form } from "rsuite";
+import detectEthereumProvider from "@metamask/detect-provider";
 function DonateTokens() {
   const { uid } = useParams();
   const { accounts } = useAuth();
@@ -18,8 +19,12 @@ function DonateTokens() {
     if (uid === undefined) return;
     if (checkIfNotFloat(value)) setValue("0");
     const hardCodedDonate = ethers.utils.parseEther(value);
-    await donate(hardCodedDonate, uid, "31337");
-    setValue("0");
+    const provider = await detectEthereumProvider();
+    if (provider) {
+      console.log(provider);
+      await donate(hardCodedDonate, uid, "5");
+      setValue("0");
+    }
   };
   const checkIfNotFloat = (inputStr: string): boolean => {
     console.log(`input: ${inputStr}`);

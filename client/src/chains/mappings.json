@@ -5,7 +5,15 @@
                 "address": "0x14b4df6e2e64779a315900e0b00cc3ee372ada94"
             }, 
             "MockToken" : {
-                "address": "0x7639c8595ba55fa2fffe198485cb263d750fe73f"
+                "address": "0x499f078B5Aef79df03a34f4a119DAa17e4C4F522"
+            }
+        },
+        "5" : {
+            "VaultContract" : {
+                "address": "0xF3369C4d8Ccf9361366f4a5197E3EB81dbc4CC19"
+            }, 
+            "MockToken" : {
+                "address": "0x9Cb547F263f447e839599Ff5d5244a9adfDfd926"
             }
         }
     }

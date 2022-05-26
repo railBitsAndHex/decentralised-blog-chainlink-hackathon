@@ -5,7 +5,7 @@ import { useTx } from "../context/TransactionContext";
 function WithdrawTokens() {
   const { withdraw, setWithdrawDep, withdrawDep } = useTx();
   const handleWithdraw = async () => {
-    await withdraw("31337");
+    await withdraw("5");
     setWithdrawDep(!withdrawDep);
   };
   return (

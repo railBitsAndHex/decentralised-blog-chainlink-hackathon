@@ -10,10 +10,12 @@ task("whitelist", "whitelist a token for contract").setAction(async () => {
   const MockToken = await ethers.getContractFactory("MockToken");
 
   const vault = await Vault.deploy();
+
   const mockToken = await MockToken.deploy(
     BigNumber.from("100000000000000000000000")
   );
-
+  console.log(`Vault address: ${vault.address}`);
+  console.log(`MockToken Address: ${mockToken.address}`);
   const wlTx = await vault.whitelistToken(mockToken.address);
   wlTx.wait(1);
 

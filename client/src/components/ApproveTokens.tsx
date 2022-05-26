@@ -12,7 +12,7 @@ function ApproveTokens() {
   const { accounts } = useAuth();
   const { approve } = useTx();
   const handleApprove = async () => {
-    await approve("31337");
+    await approve("5");
   };
   return (
     <>
