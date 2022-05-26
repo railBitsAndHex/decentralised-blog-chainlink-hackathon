@@ -23,12 +23,6 @@ import "rsuite/dist/rsuite.min.css";
 import { Moralis } from "moralis";
 function App() {
   useNetworksChanged();
-  useEffect(() => {
-    const moralisEnable = async () => {
-      await Moralis.enableWeb3({ provider: "metamask" });
-    };
-    moralisEnable();
-  }, []);
   return (
     <AuthProvider>
       <BlogpostProvider>
