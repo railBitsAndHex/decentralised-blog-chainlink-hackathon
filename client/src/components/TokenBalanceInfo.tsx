@@ -17,42 +17,38 @@ function TokenBalanceInfo() {
   const [balanceClaimable, setBalanceClaimable] = useState<string>("-");
   const mappings: IMappings = mappingJson;
 
-  const tokenAddress = mappings["chainId"]["31337"]["MockToken"].address;
-  const vaultAddress = mappings["chainId"]["31337"]["VaultContract"].address;
+  const tokenAddress = mappings["chainId"]["5"]["MockToken"].address;
+  const vaultAddress = mappings["chainId"]["5"]["VaultContract"].address;
 
   useEffect(() => {
-    const getBalanceWallet = async () => {
+    const getBalanceWalletAndClaimable = async () => {
       await Moralis.enableWeb3();
-      const { abi } = MockTokenJson;
-      const readOptions: TReadSendOptions = {
+      const readOptionsWallet: TReadSendOptions = {
         contractAddress: tokenAddress,
         functionName: "balanceOf",
-        abi: abi,
+        abi: MockTokenJson.abi,
         params: {
           account: accounts[0],
         },
       };
-      const balance = await Moralis.executeFunction(readOptions);
-      setBalanceWallet(formatEther(BigNumber.from(balance.toString())));
-    };
-    const getBalanceClaimable = async () => {
-      await Moralis.enableWeb3();
-      const { abi } = VaultJson;
+      const balanceWallet = await Moralis.executeFunction(readOptionsWallet);
+      setBalanceWallet(formatEther(BigNumber.from(balanceWallet.toString())));
       const readOptions: TReadSendOptions = {
         contractAddress: vaultAddress,
         functionName: "viewBalance",
-        abi: abi,
+        abi: VaultJson.abi,
         params: {
           _donee: accounts[0],
           _tokenAddr: tokenAddress,
         },
       };
-      const balance = await Moralis.executeFunction(readOptions);
-      console.log(balance);
-      setBalanceClaimable(formatEther(BigNumber.from(balance.toString())));
+      const balanceClaimable = await Moralis.executeFunction(readOptions);
+      console.log(balanceClaimable);
+      setBalanceClaimable(
+        formatEther(BigNumber.from(balanceClaimable.toString()))
+      );
     };
-    getBalanceWallet();
-    getBalanceClaimable();
+    getBalanceWalletAndClaimable();
   }, [withdrawDep, donatedDep]);
   return (
     <>

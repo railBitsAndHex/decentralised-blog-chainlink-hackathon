@@ -7,6 +7,14 @@
             "MockToken" : {
                 "address": "0x499f078B5Aef79df03a34f4a119DAa17e4C4F522"
             }
+        },
+        "5" : {
+            "VaultContract" : {
+                "address": "0x5d9522a23Cd7eb08544B3f7FCdA2c4C2f95B00A6"
+            }, 
+            "MockToken" : {
+                "address": "0x440b8B7332330cC13594FFFf66aDbaE3Ba3d7cF5"
+            }
         }
     }
 }

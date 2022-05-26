@@ -17,7 +17,8 @@ export const BlogpostProvider = ({ children }: BpPropsType) => {
     bp.set("title", title);
     bp.set("content", content);
     try {
-      const bpData = await bp.save();
+      await bp.save();
+      setRetrieveBp(!retrieveBp);
     } catch (error) {
       console.log("error");
     }

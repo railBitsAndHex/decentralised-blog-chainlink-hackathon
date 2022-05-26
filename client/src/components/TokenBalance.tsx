@@ -10,11 +10,16 @@ function TokenBalance() {
   return (
     <>
       <section className="token-balance-sect">
-        {accounts[0] === uid && (
+        {accounts[0] === uid ? (
           <div className="token-balance-all">
             <div className="token-bal-title">Token Balance</div>
             <TokenBalanceInfo />
             <WithdrawTokens />
+          </div>
+        ) : (
+          <div className="token-balance-all">
+            <div className="token-bal-title">Token Balance</div>
+            <div>Cannot view the user balance</div>
           </div>
         )}
       </section>
