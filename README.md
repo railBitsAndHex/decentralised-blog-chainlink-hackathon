@@ -1,4 +1,4 @@
-# decentralised-blog-chainlink-hackathon
+# web3-blog-chainlink-hackathon
 
 ## **WARNING**
 All code in this repository has **NOT BEEN AUDITED** and **SHOULD NOT** be used for production.
