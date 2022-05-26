@@ -31,7 +31,7 @@ function UserProfileInfo() {
       if (results !== undefined) setProfileObj(results);
     };
     getProfileInfo(uid);
-  }, [accounts, retrieveFollow, uid]);
+  }, [accounts, retrieveFollow, uid, retrieveP]);
   return (
     <>
       {Object.keys(profileObj).length !== 0 && (
